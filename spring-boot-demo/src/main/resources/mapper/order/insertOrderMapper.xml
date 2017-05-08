@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.haozi.demo.springboot.dao.order.InsertOrderDAO">
+
+	<insert id="insertOrder" parameterType="orderBean">
+		<![CDATA[
+		INSERT INTO
+		aquatic_order_user_info
+		(order_code,user_key,shop_key,order_money,order_status,order_source,delivery_type)
+		VALUES
+		(#{orderCode},#{userKey},#{shopKey},#{orderMoney},#{orderStatus},#{orderSource},#{deliveryType})
+		]]>
+	</insert>
+
+</mapper>

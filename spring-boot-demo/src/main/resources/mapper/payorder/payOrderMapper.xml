@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.haozi.demo.springboot.dao.payorder.PayOrderDAO">
+
+	<insert id="insertPayOrder" parameterType="payOrderBean"
+		useGeneratedKeys="true" keyProperty="id">
+		<![CDATA[
+		INSERT INTO
+		aquatic_pay_order_info
+		(
+		pay_order_code,SEND_TIME,ORDER_STATUS,PAY_WAY,PAY_MONEY,USER_KEY,PAY_TYPE,PAY_CURRENCY
+		)
+		VALUES
+		(
+		#{payOrderCode},NOW(),#{orderStatus},#{payWay},'100','testUserKey',#{payType},'0'
+		)
+		]]>
+	</insert>
+
+	<select id="queryPayOrder" parameterType="java.lang.String"
+		resultType="payOrderBean">
+		<![CDATA[
+		SELECT 
+		t.`pay_order_code` AS payOrderCode,
+		t.`ORDER_STATUS` AS orderStatus,
+		t.`TRADE_QUERY_CODE` AS tradeQueryCode,
+		DATE_FORMAT(t.SEND_TIME, '%Y-%m-%d %T') AS `addTime`,
+		DATE_FORMAT(t.DEAL_TIME, '%Y-%m-%d %T') AS payTime,
+		t.`PAY_WAY` AS payWay,
+		t.`PAY_TYPE` AS payType
+		FROM
+		aquatic_pay_order_info t 
+		WHERE 1 = 1
+		AND t.`pay_order_code` = #{payOrderCode}
+		]]>
+	</select>
+
+</mapper>

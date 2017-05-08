@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<!-- 文件输出格式 -->
+	<property name="PATTERN"
+		value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) |-%-5level [%thread] %c [%L] -| %msg%n" />
+	<!-- 文件路径 -->
+	<property name="DEV_FILE_PATH" value="D:/devdata/logs" />
+	<property name="TEST_FILE_PATH" value="/testdata/logs" />
+
+	<!-- 开发环境 -->
+	<springProfile name="dev">
+		<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+			<encoder>
+				<pattern>${PATTERN}</pattern>
+			</encoder>
+		</appender>
+		<!-- 每天产生一个文件 -->
+		<appender name="DEV-FILE"
+			class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<!-- 文件路径 -->
+			<file>${DEV_FILE_PATH}</file>
+			<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+				<!-- 文件名称 -->
+				<fileNamePattern>${DEV_FILE_PATH}/info.%d{yyyy-MM-dd}.log
+				</fileNamePattern>
+				<!-- 文件最大保存历史数量 -->
+				<MaxHistory>100</MaxHistory>
+			</rollingPolicy>
+			<!--日志文件最大的大小 -->
+			<triggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+				<MaxFileSize>10MB</MaxFileSize>
+			</triggeringPolicy>
+			<layout class="ch.qos.logback.classic.PatternLayout">
+				<pattern>${PATTERN}</pattern>
+			</layout>
+		</appender>
+
+		<!--日志异步到数据库 -->
+		<!-- <appender name="DB" class="ch.qos.logback.classic.db.DBAppender"> -->
+		<!-- <connectionSource -->
+		<!-- class="ch.qos.logback.core.db.DriverManagerConnectionSource"> -->
+		<!-- <dataSource class="com.mchange.v2.c3p0.ComboPooledDataSource"> -->
+		<!-- <driverClass>com.mysql.jdbc.Driver</driverClass> -->
+		<!-- <url>jdbc:mysql://10.108.26.9:3306/test</url> -->
+		<!-- <user>fz_aquatic_zf</user> -->
+		<!-- <password>fuzhong2015</password> -->
+		<!-- </dataSource> -->
+		<!-- </connectionSource> -->
+		<!-- </appender> -->
+
+		<logger name="com.haozi.demo" level="debug" />
+
+		<root level="info">
+			<appender-ref ref="CONSOLE" />
+			<appender-ref ref="DEV-FILE" />
+		</root>
+	</springProfile>
+
+	<!-- 测试环境 -->
+	<springProfile name="test">
+		<!-- 每天产生一个文件 -->
+		<appender name="TEST-FILE"
+			class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<!-- 文件路径 -->
+			<file>${TEST_FILE_PATH}</file>
+			<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+				<!-- 文件名称 -->
+				<fileNamePattern>${TEST_FILE_PATH}/info.%d{yyyy-MM-dd}.log
+				</fileNamePattern>
+				<!-- 文件最大保存历史数量 -->
+				<MaxHistory>100</MaxHistory>
+			</rollingPolicy>
+
+			<layout class="ch.qos.logback.classic.PatternLayout">
+				<pattern>${PATTERN}</pattern>
+			</layout>
+		</appender>
+
+		<logger name="com.haozi.demo" level="debug" />
+
+		<root level="info">
+			<appender-ref ref="TEST-FILE" />
+		</root>
+	</springProfile>
+</configuration>  

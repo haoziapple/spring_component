@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.haozi.demo.springboot.dao.order.QueryOrderDAO">
+
+	<select id="queryOrder" resultType="orderBean" parameterType="java.lang.String">
+		<![CDATA[
+		SELECT
+		t.order_code AS orderCode,
+		t.order_status AS orderStatus,
+		t.order_money AS orderMoney,
+		t.pay_order_code AS payOrderCode,
+		t.delivery_type AS deliveryType,
+		t.user_key AS userKey,
+		t.shop_key AS shopKey
+		FROM
+		aquatic_order_user_info t
+		WHERE t.order_code = #{orderCode}
+		]]>
+	</select>
+
+</mapper>
