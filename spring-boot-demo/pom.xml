@@ -112,6 +112,14 @@
 			<artifactId>schedule-service</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		
+		<!-- tag::spring-boot-admin[] -->
+		<dependency>
+			<groupId>de.codecentric</groupId>
+			<artifactId>spring-boot-admin-starter-client</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+		<!-- end::spring-boot-admin -->
 	</dependencies>
 
 	<build>

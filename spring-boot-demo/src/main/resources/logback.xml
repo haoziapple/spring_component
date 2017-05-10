@@ -84,4 +84,8 @@
 			<appender-ref ref="TEST-FILE" />
 		</root>
 	</springProfile>
+	
+	<!-- 1.5.0高版本spring-boot-admin不需添加 -->
+	<include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <jmxConfigurator/>
 </configuration>  
