@@ -112,7 +112,7 @@
 			<artifactId>schedule-service</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-		
+
 		<!-- tag::spring-boot-admin[] -->
 		<dependency>
 			<groupId>de.codecentric</groupId>
@@ -120,6 +120,11 @@
 			<version>1.3.2</version>
 		</dependency>
 		<!-- end::spring-boot-admin -->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
