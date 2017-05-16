@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-    <meta charset="UTF-8" />
-    <title></title>
+<meta charset="UTF-8" />
+<title></title>
 </head>
 <body>
-Thymeleaf模板
-<h1 th:text="${host}">Hello World</h1>
+	Thymeleaf模板
+	<h1 th:text="${host}">Hello World</h1>
+	<p>
+		点击 <a th:href="@{/hello}">这里</a> 打个招呼吧
+	</p>
 </body>
 </html>
