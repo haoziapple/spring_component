@@ -125,6 +125,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+		<!-- 日志输出到redis -->
+		<dependency>
+			<groupId>com.cwbase</groupId>
+			<artifactId>logback-redis-appender</artifactId>
+			<version>1.0.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
