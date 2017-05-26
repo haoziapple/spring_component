@@ -6,9 +6,14 @@
 
 	<!-- 区分项目名称，防止默认重名 -->
 	<context-param>
-		<param-name>webAppRootKey</param-name>
-		<param-value>simple-spring</param-value>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:bean.xml</param-value>
 	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<!-- 如上配置是Spring集成Web环境的通用配置；一般用于加载除Web层的Bean（如DAO、Service等），以便于与其他任何Web框架集成。 -->
+	<!-- ContextLoaderListener初始化的上下文加载的Bean是对于整个应用程序共享的，不管是使用什么表现层技术，一般如DAO层、Service层Bean -->
 
 	<!-- 字符集 过滤器 -->
 	<filter>

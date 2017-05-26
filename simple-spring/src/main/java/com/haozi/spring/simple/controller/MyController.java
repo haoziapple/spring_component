@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/my")
 public class MyController
 {
-	@RequestMapping(value = "/getString")
-	public @ResponseBody String getString()
+	@RequestMapping(value = "/get")
+	public @ResponseBody String get()
 	{
 		System.out.println("getString");
 		return "<html><body><h2>Hello World!</h2></body></html>";
