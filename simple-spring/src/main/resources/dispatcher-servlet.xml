@@ -3,6 +3,7 @@
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:lang="http://www.springframework.org/schema/lang"
+	xmlns:cache="http://www.springframework.org/schema/cache"
 	xsi:schemaLocation="http://www.springframework.org/schema/aop   
         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
         http://www.springframework.org/schema/beans   
@@ -12,7 +13,9 @@
         http://www.springframework.org/schema/mvc   
         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
         http://www.springframework.org/schema/tx   
-        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+        http://www.springframework.org/schema/cache 
+        http://www.springframework.org/schema/cache/spring-cache-3.1.xsd">
 
 	<!--注解说明 -->
 	<context:annotation-config />
@@ -21,17 +24,20 @@
 	<!-- 原始方法使用mvc，spring2.5之前使用 -->
 	<!-- HandlerMapping -->
 	<!-- 表示将请求的URL和Bean名字映射，如URL为 “上下文/hello”，则Spring配置文件必须有一个名字为“/hello”的Bean -->
-<!-- 	<bean id="beanNameUrlHandlerMapping" -->
-<!-- 		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" /> -->
+	<!-- <bean id="beanNameUrlHandlerMapping" -->
+	<!-- class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" 
+		/> -->
 
 	<!-- HandlerAdapter -->
 	<!-- 表示所有实现了org.springframework.web.servlet.mvc.Controller接口的Bean可以作为Spring 
 		Web MVC中的处理器。如果需要其他类型的处理器可以通过实现HadlerAdapter来解决 -->
-<!-- 	<bean id="simpleControllerHandlerAdapter" -->
-<!-- 		class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" /> -->
+	<!-- <bean id="simpleControllerHandlerAdapter" -->
+	<!-- class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" 
+		/> -->
 
-<!-- 处理器 -->
-<!-- 	<bean name="/hello" class="com.haozi.spring.simple.controller.HelloController" /> -->
+	<!-- 处理器 -->
+	<!-- <bean name="/hello" class="com.haozi.spring.simple.controller.HelloController" 
+		/> -->
 
 	<!-- ViewResolver -->
 	<bean
@@ -42,5 +48,46 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	
+	<!-- JPA实体管理器工厂 -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="persistenceProvider" ref="persistenceProvider" />
+		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+		<property name="jpaDialect" ref="jpaDialect" />
+
+		<property name="packagesToScan" value="cn.luxh.app.entity" />
+
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
+				<prop key="hibernate.max_fetch_depth">3</prop>
+				<prop key="hibernate.jdbc.fetch_size">18</prop>
+				<prop key="hibernate.jdbc.batch_size">10</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="javax.persistence.validation.mode">none</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- 用于指定持久化实现厂商类 -->
+	<bean id="persistenceProvider" class="org.hibernate.ejb.HibernatePersistence" />
+	<!-- 用于设置JPA实现厂商的特定属性 -->
+	<bean id="jpaVendorAdapter"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="database" value="MYSQL" />
+	</bean>
+	<!-- 用于指定一些高级特性 -->
+	<bean id="jpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+
+	<!-- 事务管理器 -->
+	<bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<!-- 注解式事务 -->
+	<tx:annotation-driven transaction-manager="txManager" />
+
 </beans>
