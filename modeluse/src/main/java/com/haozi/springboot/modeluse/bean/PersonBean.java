@@ -37,4 +37,10 @@ public class PersonBean
 	{
 		this.sex = sex;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "PersonBean [name=" + name + ", age=" + age + ", sex=" + sex + "]";
+	}
 }
