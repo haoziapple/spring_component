@@ -42,8 +42,8 @@
 			</encoder>
 		</appender>
 
-		<root level="info">
-			<appender-ref ref="FILE" />
+		<root level="debug">
+			<appender-ref ref="STDOUT" />
 		</root>
 	</springProfile>
 

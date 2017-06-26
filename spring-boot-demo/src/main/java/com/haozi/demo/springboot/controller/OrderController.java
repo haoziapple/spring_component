@@ -70,6 +70,8 @@ public class OrderController
 		logger.debug("/order/insert操作" + orderBean);
 		int i = insertOrderDAO.insertOrder(orderBean);
 		// throw new RuntimeException();
+		
+		int t = insertOrderDAO.insertOrder(new OrderBean());
 		return Integer.toString(i);
 	}
 }
