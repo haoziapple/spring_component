@@ -23,7 +23,7 @@ public class HelloController
 	@RequestMapping("/")
 	public String index(ModelMap map)
 	{
-		map.addAttribute("host", "thymeleaf-test-use-host");
+		map.addAttribute("hos", "thymeleaf-test-use-host");
 		return "index";
 	}
 
