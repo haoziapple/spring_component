@@ -63,7 +63,7 @@
 			<callerStackIndex>0</callerStackIndex>
 		</appender>
 
-		<logger name="${PACKAGE}" level="info">
+		<logger name="${PACKAGE}" level="info" additivity="false">
 			<appender-ref ref="LOGSTASH" />
 		</logger>
 
