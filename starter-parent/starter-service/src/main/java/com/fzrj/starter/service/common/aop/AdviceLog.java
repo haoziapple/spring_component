@@ -1,15 +1,14 @@
 package com.fzrj.starter.service.common.aop;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.Signature;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,6 +50,19 @@ public class AdviceLog
 		sysLog.setRsp(rsp);
 		logger.info("系统日志-rsp:{}", sysLog);
 	}
+
+    @AfterThrowing(value = "pointcut()", throwing = "e")
+    public void AfterThrowing(JoinPoint joinPoint, Throwable e)
+    {
+        Signature signature = joinPoint.getSignature();
+        String methodName = signature.getName();
+        String stuff = signature.toString();
+        String arguments = Arrays.toString(joinPoint.getArgs());
+        logger.info("Write something in the log... We have caught exception in method: "
+                + methodName + " with arguments "
+                + arguments + "\nand the full toString: " + stuff + "\nthe exception is: "
+                + e.getMessage(), e);
+    }
 
 	/**
 	 * @Description:初始化系统日志实体
