@@ -83,8 +83,10 @@ public class AdviceLog
 		Object[] args = joinPoint.getArgs();
 
 		Gson gson = new Gson();
-		String params = gson.toJson(args[0]);
-		sysLog.setParams(params);
+        if (args.length > 0) {
+            String params = gson.toJson(args[0]);
+            sysLog.setParams(params);
+        }
 
 		// 获取request
 		HttpServletRequest request = HttpContextUtil.getHttpServletRequest();
@@ -96,15 +98,17 @@ public class AdviceLog
 		return sysLog;
 	}
 
-	// Controller层校验请求参数，配合hibernate validator使用
-	private void validateReq(JoinPoint joinPoint)
-	{
-		Object[] args = joinPoint.getArgs();
-		if (args.length > 1 && args[1] != null && args[1] instanceof BindingResult)
-		{
-			BindingResult result = (BindingResult) args[1];
-			if (result.hasErrors())
-				throw new ParamException(result.getFieldError().getDefaultMessage());
-		}
-	}
+    // Controller层校验请求参数，配合hibernate validator使用
+    private void validateReq(JoinPoint joinPoint) {
+        Object[] args = joinPoint.getArgs();
+        if (args.length > 1 && args[1] != null && args[1] instanceof BindingResult) {
+            BindingResult result = (BindingResult) args[1];
+            if (result.hasErrors())
+                throw new ParamException(result.getFieldError().getDefaultMessage());
+        } else if (args.length > 0 && args[0] instanceof BindingResult) {
+            BindingResult result = (BindingResult) args[0];
+            if (result.hasErrors())
+                throw new ParamException(result.getFieldError().getDefaultMessage());
+        }
+    }
 }
