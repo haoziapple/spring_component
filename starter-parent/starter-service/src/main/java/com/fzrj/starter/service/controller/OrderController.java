@@ -1,11 +1,14 @@
 package com.fzrj.starter.service.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +25,7 @@ import io.swagger.annotations.ApiOperation;
 @Api("订单相关api")
 @RestController
 @RequestMapping("/order")
+@CrossOrigin(value = { "http://10.108.26.101:8089" })
 public class OrderController
 {
 	private final static Logger logger = LoggerFactory.getLogger(OrderController.class);
@@ -35,5 +39,12 @@ public class OrderController
 	public SubmitOrderRsp submit(@RequestBody @Valid SubmitOrderInfo reqInfo, BindingResult bindingResult)
 	{
 		return orderIntf.submitOrder(reqInfo);
+	}
+
+	@RequestMapping(value = "/test", method = RequestMethod.POST)
+	public SubmitOrderRsp test(SubmitOrderInfo reqInfo, BindingResult bindingResult, HttpServletRequest req)
+	{
+		logger.info(req.getRemoteHost());
+		return new SubmitOrderRsp();
 	}
 }
