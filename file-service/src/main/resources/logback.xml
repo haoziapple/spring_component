@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<configuration>
+	<!-- 项目名 -->
+	<property name="PROJECT" value="file_service" />
+	<!-- 项目包路径 -->
+	<property name="PACKAGE" value="com.haozi.springdemo.fileservice" />
+	<!-- 文件输出路径 -->
+	<property name="DEV_FILE_PATH" value="D:/logs/${PROJECT}" />
+	<property name="FILE_PATH" value="/home/${PROJECT}" />
+	<!-- 文件输出格式 -->
+	<property name="PATTERN"
+		value="TEST %-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) |-%-5level [%thread] %c [%L] -| %msg%n" />
+
+	<!-- 输出到日志文件 -->
+	<appender name="FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- 按天划分进行文件输出，超过指定大小对文件备份 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${FILE_PATH}/${PROJECT}.%d{yyyy-MM-dd}-%i.log.zip
+			</FileNamePattern>
+			<!-- 文件最大保存历史数量 -->
+			<MaxHistory>15</MaxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- 设置文件大于50M进行压缩归档 -->
+				<maxFileSize>50MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>${PATTERN}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- 开发环境 -->
+	<springProfile name="dev">
+		<!-- 控制台输出日志 -->
+		<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+			<encoder>
+				<pattern>${PATTERN}</pattern>
+			</encoder>
+		</appender>
+
+		<root level="info">
+			<appender-ref ref="STDOUT" />
+		</root>
+	</springProfile>
+
+	<!-- 测试环境 -->
+	<springProfile name="test">
+		<!-- 输出到日志服务器 -->
+		<appender name="LOGSTASH" class="com.cwbase.logback.RedisAppender">
+			<source>${PROJECT}</source>
+			<type>test</type>
+			<host>10.108.26.220</host>
+			<port>7007</port>
+			<key>logstash</key>
+			<!-- 这个Key是Redis List的Key，需要和Logstash读取Redis的Key匹配 -->
+			<tags>starter</tags>
+			<mdc>true</mdc>
+			<location>true</location>
+			<callerStackIndex>0</callerStackIndex>
+		</appender>
+
+		<logger name="${PACKAGE}" level="info">
+			<appender-ref ref="LOGSTASH" />
+		</logger>
+
+		<root level="debug">
+			<appender-ref ref="FILE" />
+		</root>
+	</springProfile>
+</configuration>  
