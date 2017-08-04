@@ -43,7 +43,7 @@ public class UploadController
 
 	@RequestMapping("/singleFile")
 	@ResponseBody
-	public String singleFile(@RequestParam("fileName") MultipartFile file, HttpServletRequest request)
+	public String singleFile(@RequestParam("img") MultipartFile file, HttpServletRequest request)
 	{
 		if (file.isEmpty())
 			return "false";
