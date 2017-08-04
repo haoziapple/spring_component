@@ -18,6 +18,8 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
+import com.haozi.springdemo.fileservice.config.PathConfig;
+
 @SpringBootApplication
 public class Application
 {
@@ -33,6 +35,9 @@ public class Application
 		{
 			logger.info("loaded bean's name: {}", beanName);
 		}
+
+		PathConfig test = ctx.getBean(PathConfig.class);
+		System.out.println(test.getMap());
 	}
 
 	/**
