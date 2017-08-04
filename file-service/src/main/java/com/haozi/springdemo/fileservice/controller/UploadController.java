@@ -51,7 +51,7 @@ public class UploadController
 		int size = (int) file.getSize();
 		logger.info("upload single file: {} --> {}", fileName, size);
 
-		String path = getFullPath(request.getParameter(SUB_PATH)) + fileName;
+		String path = getFullPath(getSubPath(request.getParameter(SUB_PATH))) + fileName;
 		File dest = new File(path);
 		if (!dest.getParentFile().exists())
 		{ // 判断文件父目录是否存在
@@ -64,12 +64,12 @@ public class UploadController
 		}
 		catch (IllegalStateException e)
 		{
-			e.printStackTrace();
+			logger.error("upload file exception", e);
 			return "false";
 		}
 		catch (IOException e)
 		{
-			e.printStackTrace();
+			logger.error("upload file exception", e);
 			return "false";
 		}
 	}
@@ -111,7 +111,6 @@ public class UploadController
 
 	public static void main(String[] args)
 	{
-		UploadController test = new UploadController();
 		System.out.println(File.pathSeparator);
 		System.out.println(File.separator);
 	}

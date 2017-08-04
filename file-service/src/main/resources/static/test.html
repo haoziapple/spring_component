@@ -9,8 +9,11 @@
 	<form action="http://10.108.26.61:9527/file/upload/singleFile"
 		method="POST" enctype="multipart/form-data">
 		<p>
-			单文件上传：</><br /> <input type="file" name="fileName" /> <input type="text" name="path"><input
-				type="submit" value="上传" />
+			单文件上传：</><br /> 
+			<input type="file" name="fileName" /> 
+			</><br /> 选择子目录:path1或path2（可在application.properties中设置）
+			<input type="text" name="path">
+			<input type="submit" value="上传" />
 	</form>
 	<form method="POST" enctype="multipart/form-data"
 		action="http://10.108.26.61:9527/file/upload/multiFile">
