@@ -60,7 +60,7 @@ public class UploadController
 		try
 		{
 			file.transferTo(dest); // 保存文件
-			return path;
+			return path.substring(uploadPath.length());
 		}
 		catch (IllegalStateException e)
 		{
