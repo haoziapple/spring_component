@@ -91,15 +91,15 @@
 		</plugins>
 	</build>
 
-	<repositories>
+	<!-- <repositories>
 		<repository>
 			<id>nexus</id>
 			<name>Team Nexus Repository</name>
 			<url>http://10.108.26.220:8081/nexus/content/groups/public</url>
 			<snapshots>
-				<enabled>true</enabled>
+				<enabled>true</enabled> -->
 				<!-- always\daily\interval\never -->
-				<updatePolicy>daily</updatePolicy>
+				<!-- <updatePolicy>daily</updatePolicy>
 			</snapshots>
 		</repository>
 	</repositories>
@@ -121,5 +121,5 @@
 			<name>Team Nexus Snapshot Repository</name>
 			<url>http://10.108.26.220:8081/nexus/content/repositories/snapshots</url>
 		</snapshotRepository>
-	</distributionManagement>
+	</distributionManagement> -->
 </project>
