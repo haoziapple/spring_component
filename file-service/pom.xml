@@ -84,7 +84,14 @@
 			<artifactId>simpleimage</artifactId>
 			<version>1.2.3</version>
 		</dependency>
-
+		
+		<!-- Guava: Google Core Libraries for Java -->
+		<!-- swagger中已经引入18.0版本，被此23.0版本覆盖后，项目启动会报错：jdk版本问题 -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.google.guava</groupId> -->
+<!-- 			<artifactId>guava</artifactId> -->
+<!-- 			<version>23.0</version> -->
+<!-- 		</dependency> -->
 
 	</dependencies>
 
@@ -107,35 +114,16 @@
 		</plugins>
 	</build>
 
-	<!-- <repositories>
-		<repository>
-			<id>nexus</id>
-			<name>Team Nexus Repository</name>
-			<url>http://10.108.26.220:8081/nexus/content/groups/public</url>
-			<snapshots>
-				<enabled>true</enabled> -->
-				<!-- always\daily\interval\never -->
-				<!-- <updatePolicy>daily</updatePolicy>
-			</snapshots>
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>nexus</id>
-			<name>Team Nexus Repository</name>
-			<url>http://10.108.26.220:8081/nexus/content/groups/public</url>
-		</pluginRepository>
-	</pluginRepositories>
-	<distributionManagement>
-		<repository>
-			<id>nexus</id>
-			<name>Team Nexus Repository</name>
-			<url>http://10.108.26.220:8081/nexus/content/repositories/releases</url>
-		</repository>
-		<snapshotRepository>
-			<id>nexus-snapshot</id>
-			<name>Team Nexus Snapshot Repository</name>
-			<url>http://10.108.26.220:8081/nexus/content/repositories/snapshots</url>
-		</snapshotRepository>
-	</distributionManagement> -->
+	<!-- <repositories> <repository> <id>nexus</id> <name>Team Nexus Repository</name> 
+		<url>http://10.108.26.220:8081/nexus/content/groups/public</url> <snapshots> 
+		<enabled>true</enabled> -->
+	<!-- always\daily\interval\never -->
+	<!-- <updatePolicy>daily</updatePolicy> </snapshots> </repository> </repositories> 
+		<pluginRepositories> <pluginRepository> <id>nexus</id> <name>Team Nexus Repository</name> 
+		<url>http://10.108.26.220:8081/nexus/content/groups/public</url> </pluginRepository> 
+		</pluginRepositories> <distributionManagement> <repository> <id>nexus</id> 
+		<name>Team Nexus Repository</name> <url>http://10.108.26.220:8081/nexus/content/repositories/releases</url> 
+		</repository> <snapshotRepository> <id>nexus-snapshot</id> <name>Team Nexus 
+		Snapshot Repository</name> <url>http://10.108.26.220:8081/nexus/content/repositories/snapshots</url> 
+		</snapshotRepository> </distributionManagement> -->
 </project>

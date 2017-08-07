@@ -9,7 +9,11 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
 
+import org.apache.catalina.servlet4preview.http.HttpServletRequestWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -63,7 +67,14 @@ public class Application
 			public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
 					FilterChain filterChain) throws IOException, ServletException
 			{
+				logger.info(servletRequest.getRemoteHost() + " enter the api filter");
+				filterChain.doFilter(new HttpServletRequestWrapper((HttpServletRequest) servletRequest)
+				{
 
+				}, new HttpServletResponseWrapper((HttpServletResponse) servletResponse)
+				{
+
+				});
 			}
 
 			@Override
