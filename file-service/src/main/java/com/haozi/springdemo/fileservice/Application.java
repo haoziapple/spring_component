@@ -55,12 +55,12 @@ public class Application
 		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
 		registrationBean.setFilter(new Filter()
 		{
-			private String PASSHOSTS;
+//			private String PASSHOSTS;
 
 			@Override
 			public void init(FilterConfig filterConfig) throws ServletException
 			{
-				this.PASSHOSTS = filterConfig.getInitParameter("passIP");
+//				this.PASSHOSTS = filterConfig.getInitParameter("passIP");
 			}
 
 			@Override

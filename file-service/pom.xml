@@ -4,7 +4,7 @@
 
 	<groupId>com.haozi.springdemo</groupId>
 	<artifactId>file-service</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>file-service</name>
@@ -13,7 +13,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.7</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 
 	<parent>
@@ -67,7 +67,6 @@
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
-			<version>2.9.9</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
@@ -109,13 +108,18 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<!-- 使用java1.7和UTF-8编码 -->
+			<!-- we want sources to be processed by a specific 1.8 javac -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.8</source><!-- 源代码使用的开发版本 -->
+					<target>1.8</target><!-- 需要生成的目标class文件的编译版本 -->
+					<!-- 一般而言，target与source是保持一致的，但是，有时候为了让程序能在其他版本的jdk中运行(对于低版本目标jdk，源代码中需要没有使用低版本jdk中不支持的语法)，会存在target不同于source的情况 -->
 					<encoding>UTF-8</encoding>
+					<verbose>true</verbose>
+					<fork>true</fork><!-- fork is enable,用于明确表示编译版本配置的可用 -->
+					<executable>${JAVA_HOME}/bin/javac</executable>
 				</configuration>
 			</plugin>
 			<!-- 打包跳过测试 -->
@@ -124,6 +128,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
 					<!-- <skipTests>true</skipTests> -->
+					<runOrder>random</runOrder>
 				</configuration>
 			</plugin>
 		</plugins>

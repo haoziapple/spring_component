@@ -58,8 +58,11 @@ public class ThumbnailatorUtil extends ImageUtil
 				builder = Thumbnails.of(image).sourceRegion(Positions.CENTER, width, height);
 			}
 
-			buildTargetImg(builder);
-			result = true;
+			if (builder != null)
+			{
+				buildTargetImg(builder);
+				result = true;
+			}
 		}
 		catch (IOException e)
 		{
