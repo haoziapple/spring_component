@@ -43,7 +43,7 @@ public class ThumbnailatorUtilTest
 			int h = 300;
 			ThumbnailatorUtil util = new ThumbnailatorUtil();
 			util.init(sourceFile, targetFile);
-			boolean result = util.scaleNormal(300, 300);
+			boolean result = util.scaleNormal(300, 300, true);
 			assertTrue("图片处理失败", result);
 		}
 		catch (Exception e)

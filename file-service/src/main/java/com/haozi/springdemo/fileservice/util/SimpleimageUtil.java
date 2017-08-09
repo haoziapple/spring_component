@@ -26,7 +26,7 @@ public class SimpleimageUtil extends ImageUtil
 	private static final Logger logger = LoggerFactory.getLogger(SimpleimageUtil.class);
 
 	@Override
-	public boolean scaleNormal(int width, int height)
+	public boolean scaleNormal(int width, int height, boolean cut)
 	{
 		boolean success = false;
 

@@ -26,7 +26,7 @@ public class ThumbnailatorUtil extends ImageUtil
 	private static final Logger logger = LoggerFactory.getLogger(ThumbnailatorUtil.class);
 
 	@Override
-	public boolean scaleNormal(int width, int height)
+	public boolean scaleNormal(int width, int height, boolean cut)
 	{
 		boolean result = false;
 		try
@@ -40,14 +40,18 @@ public class ThumbnailatorUtil extends ImageUtil
 			if (w < width && h < height)
 			{
 				// 如果图片宽和高都小于目标图片则不做缩放处理
-				builder = Thumbnails.of(image).size(w, h);
+				image = Thumbnails.of(image).size(w, h).asBufferedImage();
+				builder = Thumbnails.of(image);
 			}
 			else if (srcRatio >= dstRatio)
 			{
 				// 按高度同比例缩放
 				image = Thumbnails.of(image).height(height).asBufferedImage();
 				// 裁剪
-				builder = Thumbnails.of(image).sourceRegion(Positions.CENTER, width, height);
+				if (cut)
+					builder = Thumbnails.of(image).sourceRegion(Positions.CENTER, width, height);
+				else
+					builder = Thumbnails.of(image);
 
 			}
 			else if (srcRatio < dstRatio)
@@ -55,7 +59,10 @@ public class ThumbnailatorUtil extends ImageUtil
 				// 按宽度同比例缩放
 				image = Thumbnails.of(image).width(width).asBufferedImage();
 				// 裁剪
-				builder = Thumbnails.of(image).sourceRegion(Positions.CENTER, width, height);
+				if (cut)
+					builder = Thumbnails.of(image).sourceRegion(Positions.CENTER, width, height);
+				else
+					builder = Thumbnails.of(image);
 			}
 
 			if (builder != null)

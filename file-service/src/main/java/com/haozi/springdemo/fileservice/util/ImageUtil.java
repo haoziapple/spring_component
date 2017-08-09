@@ -28,9 +28,9 @@ public abstract class ImageUtil
 		_inStream = new FileInputStream(src);
 		_outStream = new FileOutputStream(target);
 	}
-	
+
 	/**
-	 * @Description:等比例缩放，多余部分裁剪
+	 * @Description:等比例缩放，是否裁剪
 	 * @param width
 	 * @param height
 	 * @return
@@ -38,7 +38,7 @@ public abstract class ImageUtil
 	 * @author:WangHao
 	 * @date:2017年8月8日 下午4:53:56
 	 */
-	public abstract boolean scaleNormal(int width, int height);
+	public abstract boolean scaleNormal(int width, int height, boolean cut);
 
 	/**
 	 * @Description:缩放到指定宽度，高度自适应
