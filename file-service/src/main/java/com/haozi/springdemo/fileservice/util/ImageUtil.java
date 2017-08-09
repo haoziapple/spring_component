@@ -8,8 +8,10 @@ import org.apache.commons.io.IOUtils;
 
 public abstract class ImageUtil
 {
-	protected FileInputStream inStream = null;
-	protected FileOutputStream outStream = null;
+	protected FileInputStream _inStream = null;
+	protected FileOutputStream _outStream = null;
+	protected String _src;
+	protected String _target;
 
 	/**
 	 * @Description:初始化输入输出文件(绝对路径)
@@ -21,10 +23,12 @@ public abstract class ImageUtil
 	 */
 	public void init(String src, String target) throws FileNotFoundException
 	{
-		inStream = new FileInputStream(src);
-		outStream = new FileOutputStream(target);
+		this._src = src;
+		this._target = target;
+		_inStream = new FileInputStream(src);
+		_outStream = new FileOutputStream(target);
 	}
-
+	
 	/**
 	 * @Description:等比例缩放，多余部分裁剪
 	 * @param width
@@ -59,8 +63,8 @@ public abstract class ImageUtil
 	// 关闭文件流
 	protected void finish()
 	{
-		IOUtils.closeQuietly(inStream);
-		IOUtils.closeQuietly(outStream);
+		IOUtils.closeQuietly(_inStream);
+		IOUtils.closeQuietly(_outStream);
 
 	}
 

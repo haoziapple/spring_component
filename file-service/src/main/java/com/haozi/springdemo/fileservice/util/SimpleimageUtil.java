@@ -32,7 +32,7 @@ public class SimpleimageUtil extends ImageUtil
 
 		try
 		{
-			ImageWrapper imageWrapper = ImageReadHelper.read(inStream);
+			ImageWrapper imageWrapper = ImageReadHelper.read(this._inStream);
 			int w = imageWrapper.getWidth();
 			int h = imageWrapper.getHeight();
 
