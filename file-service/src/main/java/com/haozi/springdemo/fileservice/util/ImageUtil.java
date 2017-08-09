@@ -1,8 +1,11 @@
 package com.haozi.springdemo.fileservice.util;
 
+import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import org.apache.commons.io.IOUtils;
 
@@ -19,9 +22,10 @@ public abstract class ImageUtil
 	 * @param outputFile
 	 * @version:v1.0
 	 * @author:WangHao
+	 * @throws IOException
 	 * @date:2017年8月8日 下午3:04:26
 	 */
-	public void init(String src, String target) throws FileNotFoundException
+	public void init(String src, String target) throws IOException
 	{
 		this._src = src;
 		this._target = target;

@@ -1,5 +1,6 @@
 package com.haozi.springdemo.fileservice.controller;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -9,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.RandomStringUtils;
@@ -54,7 +56,7 @@ public class UploadController
 
 	@Autowired
 	private PathConfig pathConfig;
-	
+
 	@Autowired
 	private ImgHandler imgHandler;
 
@@ -87,7 +89,9 @@ public class UploadController
 		{
 			file.transferTo(dest); // 保存文件
 			// 处理图片
-			imgHandler.processImg(path, suffix);
+			BufferedImage image = ImageIO.read(dest);
+			if (image != null)
+				imgHandler.processImg(path, suffix);
 			// 根目录的路径截取掉，不需要返回
 			return path.substring(uploadPath.length());
 		}

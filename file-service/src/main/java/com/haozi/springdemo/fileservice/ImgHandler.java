@@ -1,7 +1,6 @@
 package com.haozi.springdemo.fileservice;
 
-import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,7 +57,7 @@ public class ImgHandler
 			processer.init(fullPath, prefix + S_END + suffix);
 			processer.scaleNormal(S_SIZE, S_SIZE, false);
 		}
-		catch (FileNotFoundException e)
+		catch (IOException e)
 		{
 			logger.error("图片读写异常", e);
 			return;
