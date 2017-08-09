@@ -18,14 +18,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 import com.haozi.springdemo.fileservice.config.PathConfig;
 
 @SpringBootApplication
-public class Application
+public class Application extends SpringBootServletInitializer
 {
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
@@ -44,6 +46,12 @@ public class Application
 		System.out.println(test.getMap());
 	}
 
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder)
+	{
+		return builder.sources(this.getClass());
+	}
+
 	/**
 	 * 添加过滤器
 	 * 
@@ -55,12 +63,12 @@ public class Application
 		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
 		registrationBean.setFilter(new Filter()
 		{
-//			private String PASSHOSTS;
+			// private String PASSHOSTS;
 
 			@Override
 			public void init(FilterConfig filterConfig) throws ServletException
 			{
-//				this.PASSHOSTS = filterConfig.getInitParameter("passIP");
+				// this.PASSHOSTS = filterConfig.getInitParameter("passIP");
 			}
 
 			@Override

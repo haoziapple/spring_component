@@ -33,6 +33,7 @@ public class UploadController
 	// 日期子文件夹格式
 	private static final String DATE_FORMAT = "YYYYMMdd";
 
+	// 上传根目录
 	@Value("${file.upload.path}")
 	private String uploadPath;
 
@@ -51,6 +52,7 @@ public class UploadController
 		int size = (int) file.getSize();
 		logger.info("upload single file: {} --> {}", fileName, size);
 
+		// 获取输出文件路径
 		String path = getFullPath(getSubPath(request.getParameter(SUB_PATH))) + fileName;
 		File dest = new File(path);
 		if (!dest.getParentFile().exists())
@@ -60,6 +62,7 @@ public class UploadController
 		try
 		{
 			file.transferTo(dest); // 保存文件
+			// 根目录
 			return path.substring(uploadPath.length());
 		}
 		catch (IllegalStateException e)
