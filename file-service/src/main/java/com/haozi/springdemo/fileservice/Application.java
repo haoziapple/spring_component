@@ -23,14 +23,17 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import com.haozi.springdemo.fileservice.config.PathConfig;
 
 @SpringBootApplication
+@EnableAsync
 public class Application extends SpringBootServletInitializer
 {
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
+	// jar包方式启动
 	public static void main(String[] args)
 	{
 		ApplicationContext ctx = SpringApplication.run(Application.class, args);
@@ -46,6 +49,7 @@ public class Application extends SpringBootServletInitializer
 		System.out.println(test.getMap());
 	}
 
+	// war包方式启动
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder)
 	{

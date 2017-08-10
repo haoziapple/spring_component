@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import com.haozi.springdemo.fileservice.util.ThumbnailatorUtil;
@@ -43,11 +44,14 @@ public class ImgHandler
 	 * @author:WangHao
 	 * @date:2017年8月9日 下午7:17:35
 	 */
+	@Async
 	public void processImg(String fullPath, String suffix)
 	{
 		ThumbnailatorUtil processer = new ThumbnailatorUtil();
 		String prefix = fullPath.substring(0, fullPath.lastIndexOf(suffix));
 
+		long startTime = System.currentTimeMillis();
+		logger.info("start process img: {}", fullPath);
 		try
 		{
 			processer.init(fullPath, prefix + B_END + suffix);
@@ -62,6 +66,7 @@ public class ImgHandler
 			logger.error("图片读写异常", e);
 			return;
 		}
+		logger.info("finish process img, spent time: {} ms", System.currentTimeMillis() - startTime);
 	}
 
 	public static void main(String[] args)
