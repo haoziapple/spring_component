@@ -49,8 +49,15 @@
 
 	<!-- 测试环境 -->
 	<springProfile name="test">
+		<!-- 控制台输出日志 -->
+		<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+			<encoder>
+				<pattern>${PATTERN}</pattern>
+			</encoder>
+		</appender>
 		<root level="info">
 			<appender-ref ref="FILE" />
+<!-- 			<appender-ref ref="STDOUT" /> -->
 		</root>
 	</springProfile>
 </configuration>  
