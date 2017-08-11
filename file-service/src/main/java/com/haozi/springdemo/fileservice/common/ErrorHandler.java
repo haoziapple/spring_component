@@ -14,13 +14,13 @@ import org.springframework.web.multipart.MultipartException;
 @ControllerAdvice
 public class ErrorHandler
 {
-	private final static Logger logger = LoggerFactory.getLogger(ErrorHandler.class);
+	private static final Logger logger = LoggerFactory.getLogger(ErrorHandler.class);
 
 	// 一般异常处理
 	@ExceptionHandler(value = Exception.class)
 	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR, reason = "Uncatched Exception")
 	@ResponseBody
-	public String defaultErrorHandler(HttpServletResponse rsp, Exception e) throws Exception
+	public String defaultErrorHandler(HttpServletResponse rsp, Exception e)
 	{
 		logger.error("Uncatched Exception", e);
 		return "false";
@@ -29,7 +29,7 @@ public class ErrorHandler
 	@ExceptionHandler(value = MultipartException.class)
 	@ResponseStatus(code = HttpStatus.NOT_ACCEPTABLE, reason = "Multipart Exception")
 	@ResponseBody
-	public String MultipartExceptionHandler(HttpServletResponse rsp, Exception e) throws Exception
+	public String multipartExceptionHandler(HttpServletResponse rsp, Exception e)
 	{
 		logger.error("Multipart Exception", e);
 		return "false";

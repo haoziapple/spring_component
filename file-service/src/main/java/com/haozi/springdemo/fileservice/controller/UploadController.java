@@ -35,6 +35,8 @@ import com.haozi.springdemo.fileservice.util.RandomUtil;
 @RequestMapping("/upload")
 public class UploadController
 {
+	private static final String FALSE = "false";
+
 	// 文件名中的随机数位数
 	private static final int RANDOM_NUM = 6;
 
@@ -67,7 +69,7 @@ public class UploadController
 	public String singleFile(@RequestParam("img") MultipartFile file, HttpServletRequest request)
 	{
 		if (file.isEmpty())
-			return "false";
+			return FALSE;
 		// 原文件名
 		String orignFileName = file.getOriginalFilename();
 		// 文件后缀名
@@ -95,15 +97,10 @@ public class UploadController
 			// 根目录的路径截取掉，不需要返回
 			return path.substring(uploadPath.length());
 		}
-		catch (IllegalStateException e)
+		catch (IllegalStateException | IOException e)
 		{
 			logger.error("upload file exception", e);
-			return "false";
-		}
-		catch (IOException e)
-		{
-			logger.error("upload file exception", e);
-			return "false";
+			return FALSE;
 		}
 	}
 
@@ -113,7 +110,7 @@ public class UploadController
 	public Map<String, String> multiFile(HttpServletRequest request)
 	{
 		List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
-		Map<String, String> results = new HashMap<String, String>();
+		Map<String, String> results = new HashMap<>();
 		for (MultipartFile file : files)
 		{
 			results.put(file.getOriginalFilename(), this.singleFile(file, request));
