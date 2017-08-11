@@ -73,6 +73,6 @@ public class ImgHandler
 	{
 		String test = "http://blog.csdn.net/haluoluo211/article/details/52794569";
 		System.out.println(test.substring(0, test.lastIndexOf("/52794569")));
-		System.out.println(test.substring(test.lastIndexOf("/")));
+		System.out.println(test.substring(test.lastIndexOf('/')));
 	}
 }
