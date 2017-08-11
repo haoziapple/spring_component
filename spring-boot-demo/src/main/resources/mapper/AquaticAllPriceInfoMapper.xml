@@ -14,7 +14,7 @@
     <result column="price_mark_key" jdbcType="VARCHAR" property="priceMarkKey" />
     <result column="current_price" jdbcType="DECIMAL" property="currentPrice" />
     <result column="original_price" jdbcType="DECIMAL" property="originalPrice" />
-    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="status" jdbcType="CHAR" property="status" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="start_num" jdbcType="INTEGER" property="startNum" />
@@ -58,7 +58,7 @@
       end_num)
     values (#{id,jdbcType=INTEGER}, #{priceKey,jdbcType=VARCHAR}, #{shopKey,jdbcType=VARCHAR}, 
       #{goodsKey,jdbcType=VARCHAR}, #{skuKey,jdbcType=VARCHAR}, #{priceMarkKey,jdbcType=VARCHAR}, 
-      #{currentPrice,jdbcType=DECIMAL}, #{originalPrice,jdbcType=DECIMAL}, #{status,jdbcType=VARCHAR}, 
+      #{currentPrice,jdbcType=DECIMAL}, #{originalPrice,jdbcType=DECIMAL}, #{status,jdbcType=CHAR}, 
       #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{startNum,jdbcType=INTEGER}, 
       #{endNum,jdbcType=INTEGER})
   </insert>
@@ -135,7 +135,7 @@
         #{originalPrice,jdbcType=DECIMAL},
       </if>
       <if test="status != null">
-        #{status,jdbcType=VARCHAR},
+        #{status,jdbcType=CHAR},
       </if>
       <if test="addTime != null">
         #{addTime,jdbcType=TIMESTAMP},
@@ -180,7 +180,7 @@
         original_price = #{originalPrice,jdbcType=DECIMAL},
       </if>
       <if test="status != null">
-        status = #{status,jdbcType=VARCHAR},
+        status = #{status,jdbcType=CHAR},
       </if>
       <if test="addTime != null">
         add_time = #{addTime,jdbcType=TIMESTAMP},
@@ -210,7 +210,7 @@
       price_mark_key = #{priceMarkKey,jdbcType=VARCHAR},
       current_price = #{currentPrice,jdbcType=DECIMAL},
       original_price = #{originalPrice,jdbcType=DECIMAL},
-      status = #{status,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR},
       add_time = #{addTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       start_num = #{startNum,jdbcType=INTEGER},

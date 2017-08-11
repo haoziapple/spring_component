@@ -40,15 +40,9 @@
 			targetProject="src/main/java" type="XMLMAPPER" />
 
 		<!-- 不生成example方法 -->
-		<table tableName="aquatic_all_price_info" enableCountByExample="false"
+		<table tableName="%" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
 		</table>
-		<table tableName="aquatic_order_user_info" enableCountByExample="false"
-			enableUpdateByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" selectByExampleQueryId="false"></table>
-		<table tableName="aquatic_pay_order_info" enableCountByExample="false"
-			enableUpdateByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" selectByExampleQueryId="false"></table>
 	</context>
 </generatorConfiguration>  

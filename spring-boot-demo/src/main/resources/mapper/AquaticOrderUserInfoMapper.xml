@@ -11,10 +11,10 @@
     <result column="user_key" jdbcType="VARCHAR" property="userKey" />
     <result column="shop_key" jdbcType="VARCHAR" property="shopKey" />
     <result column="order_money" jdbcType="DECIMAL" property="orderMoney" />
-    <result column="order_status" jdbcType="VARCHAR" property="orderStatus" />
-    <result column="order_source" jdbcType="VARCHAR" property="orderSource" />
+    <result column="order_status" jdbcType="CHAR" property="orderStatus" />
+    <result column="order_source" jdbcType="CHAR" property="orderSource" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="delivery_type" jdbcType="VARCHAR" property="deliveryType" />
+    <result column="delivery_type" jdbcType="CHAR" property="deliveryType" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="telephone" jdbcType="VARCHAR" property="telephone" />
     <result column="address" jdbcType="VARCHAR" property="address" />
@@ -24,22 +24,24 @@
     <result column="change_time" jdbcType="TIMESTAMP" property="changeTime" />
     <result column="receiver_time" jdbcType="TIMESTAMP" property="receiverTime" />
     <result column="close_time" jdbcType="TIMESTAMP" property="closeTime" />
-    <result column="order_type" jdbcType="VARCHAR" property="orderType" />
-    <result column="is_bill" jdbcType="VARCHAR" property="isBill" />
-    <result column="is_refund" jdbcType="VARCHAR" property="isRefund" />
+    <result column="order_type" jdbcType="CHAR" property="orderType" />
+    <result column="is_bill" jdbcType="CHAR" property="isBill" />
+    <result column="is_refund" jdbcType="CHAR" property="isRefund" />
     <result column="arayacak_address" jdbcType="VARCHAR" property="arayacakAddress" />
-    <result column="pay_type" jdbcType="VARCHAR" property="payType" />
+    <result column="pay_type" jdbcType="CHAR" property="payType" />
     <result column="pay_order_code" jdbcType="VARCHAR" property="payOrderCode" />
     <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
     <result column="send_url" jdbcType="VARCHAR" property="sendUrl" />
     <result column="shop_name" jdbcType="VARCHAR" property="shopName" />
-    <result column="close_type" jdbcType="INTEGER" property="closeType" />
-    <result column="user_delete" jdbcType="VARCHAR" property="userDelete" />
-    <result column="is_settle" jdbcType="VARCHAR" property="isSettle" />
+    <result column="close_type" jdbcType="CHAR" property="closeType" />
+    <result column="user_delete" jdbcType="CHAR" property="userDelete" />
+    <result column="is_settle" jdbcType="CHAR" property="isSettle" />
     <result column="face_key" jdbcType="VARCHAR" property="faceKey" />
     <result column="shop_remark" jdbcType="VARCHAR" property="shopRemark" />
-    <result column="order_online" jdbcType="VARCHAR" property="orderOnline" />
     <result column="status_remark" jdbcType="VARCHAR" property="statusRemark" />
+    <result column="order_online" jdbcType="CHAR" property="orderOnline" />
+    <result column="commission" jdbcType="DECIMAL" property="commission" />
+    <result column="close_resion" jdbcType="VARCHAR" property="closeResion" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--
@@ -50,7 +52,7 @@
     delivery_type, user_name, telephone, address, code, add_time, send_time, change_time, 
     receiver_time, close_time, order_type, is_bill, is_refund, arayacak_address, pay_type, 
     pay_order_code, pay_time, send_url, shop_name, close_type, user_delete, is_settle, 
-    face_key, shop_remark, order_online, status_remark
+    face_key, shop_remark, status_remark, order_online, commission, close_resion
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--
@@ -85,20 +87,22 @@
       arayacak_address, pay_type, pay_order_code, 
       pay_time, send_url, shop_name, 
       close_type, user_delete, is_settle, 
-      face_key, shop_remark, order_online, 
-      status_remark)
+      face_key, shop_remark, status_remark, 
+      order_online, commission, close_resion
+      )
     values (#{id,jdbcType=INTEGER}, #{orderCode,jdbcType=VARCHAR}, #{userKey,jdbcType=VARCHAR}, 
-      #{shopKey,jdbcType=VARCHAR}, #{orderMoney,jdbcType=DECIMAL}, #{orderStatus,jdbcType=VARCHAR}, 
-      #{orderSource,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{deliveryType,jdbcType=VARCHAR}, 
+      #{shopKey,jdbcType=VARCHAR}, #{orderMoney,jdbcType=DECIMAL}, #{orderStatus,jdbcType=CHAR}, 
+      #{orderSource,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, #{deliveryType,jdbcType=CHAR}, 
       #{userName,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{code,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP}, #{sendTime,jdbcType=TIMESTAMP}, 
       #{changeTime,jdbcType=TIMESTAMP}, #{receiverTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, 
-      #{orderType,jdbcType=VARCHAR}, #{isBill,jdbcType=VARCHAR}, #{isRefund,jdbcType=VARCHAR}, 
-      #{arayacakAddress,jdbcType=VARCHAR}, #{payType,jdbcType=VARCHAR}, #{payOrderCode,jdbcType=VARCHAR}, 
+      #{orderType,jdbcType=CHAR}, #{isBill,jdbcType=CHAR}, #{isRefund,jdbcType=CHAR}, 
+      #{arayacakAddress,jdbcType=VARCHAR}, #{payType,jdbcType=CHAR}, #{payOrderCode,jdbcType=VARCHAR}, 
       #{payTime,jdbcType=TIMESTAMP}, #{sendUrl,jdbcType=VARCHAR}, #{shopName,jdbcType=VARCHAR}, 
-      #{closeType,jdbcType=INTEGER}, #{userDelete,jdbcType=VARCHAR}, #{isSettle,jdbcType=VARCHAR}, 
-      #{faceKey,jdbcType=VARCHAR}, #{shopRemark,jdbcType=VARCHAR}, #{orderOnline,jdbcType=VARCHAR}, 
-      #{statusRemark,jdbcType=VARCHAR})
+      #{closeType,jdbcType=CHAR}, #{userDelete,jdbcType=CHAR}, #{isSettle,jdbcType=CHAR}, 
+      #{faceKey,jdbcType=VARCHAR}, #{shopRemark,jdbcType=VARCHAR}, #{statusRemark,jdbcType=VARCHAR}, 
+      #{orderOnline,jdbcType=CHAR}, #{commission,jdbcType=DECIMAL}, #{closeResion,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.haozi.demo.springboot.bean.po.AquaticOrderUserInfo">
     <!--
@@ -203,11 +207,17 @@
       <if test="shopRemark != null">
         shop_remark,
       </if>
+      <if test="statusRemark != null">
+        status_remark,
+      </if>
       <if test="orderOnline != null">
         order_online,
       </if>
-      <if test="statusRemark != null">
-        status_remark,
+      <if test="commission != null">
+        commission,
+      </if>
+      <if test="closeResion != null">
+        close_resion,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -227,16 +237,16 @@
         #{orderMoney,jdbcType=DECIMAL},
       </if>
       <if test="orderStatus != null">
-        #{orderStatus,jdbcType=VARCHAR},
+        #{orderStatus,jdbcType=CHAR},
       </if>
       <if test="orderSource != null">
-        #{orderSource,jdbcType=VARCHAR},
+        #{orderSource,jdbcType=CHAR},
       </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
       </if>
       <if test="deliveryType != null">
-        #{deliveryType,jdbcType=VARCHAR},
+        #{deliveryType,jdbcType=CHAR},
       </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
@@ -266,19 +276,19 @@
         #{closeTime,jdbcType=TIMESTAMP},
       </if>
       <if test="orderType != null">
-        #{orderType,jdbcType=VARCHAR},
+        #{orderType,jdbcType=CHAR},
       </if>
       <if test="isBill != null">
-        #{isBill,jdbcType=VARCHAR},
+        #{isBill,jdbcType=CHAR},
       </if>
       <if test="isRefund != null">
-        #{isRefund,jdbcType=VARCHAR},
+        #{isRefund,jdbcType=CHAR},
       </if>
       <if test="arayacakAddress != null">
         #{arayacakAddress,jdbcType=VARCHAR},
       </if>
       <if test="payType != null">
-        #{payType,jdbcType=VARCHAR},
+        #{payType,jdbcType=CHAR},
       </if>
       <if test="payOrderCode != null">
         #{payOrderCode,jdbcType=VARCHAR},
@@ -293,13 +303,13 @@
         #{shopName,jdbcType=VARCHAR},
       </if>
       <if test="closeType != null">
-        #{closeType,jdbcType=INTEGER},
+        #{closeType,jdbcType=CHAR},
       </if>
       <if test="userDelete != null">
-        #{userDelete,jdbcType=VARCHAR},
+        #{userDelete,jdbcType=CHAR},
       </if>
       <if test="isSettle != null">
-        #{isSettle,jdbcType=VARCHAR},
+        #{isSettle,jdbcType=CHAR},
       </if>
       <if test="faceKey != null">
         #{faceKey,jdbcType=VARCHAR},
@@ -307,11 +317,17 @@
       <if test="shopRemark != null">
         #{shopRemark,jdbcType=VARCHAR},
       </if>
-      <if test="orderOnline != null">
-        #{orderOnline,jdbcType=VARCHAR},
-      </if>
       <if test="statusRemark != null">
         #{statusRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderOnline != null">
+        #{orderOnline,jdbcType=CHAR},
+      </if>
+      <if test="commission != null">
+        #{commission,jdbcType=DECIMAL},
+      </if>
+      <if test="closeResion != null">
+        #{closeResion,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -335,16 +351,16 @@
         order_money = #{orderMoney,jdbcType=DECIMAL},
       </if>
       <if test="orderStatus != null">
-        order_status = #{orderStatus,jdbcType=VARCHAR},
+        order_status = #{orderStatus,jdbcType=CHAR},
       </if>
       <if test="orderSource != null">
-        order_source = #{orderSource,jdbcType=VARCHAR},
+        order_source = #{orderSource,jdbcType=CHAR},
       </if>
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
       <if test="deliveryType != null">
-        delivery_type = #{deliveryType,jdbcType=VARCHAR},
+        delivery_type = #{deliveryType,jdbcType=CHAR},
       </if>
       <if test="userName != null">
         user_name = #{userName,jdbcType=VARCHAR},
@@ -374,19 +390,19 @@
         close_time = #{closeTime,jdbcType=TIMESTAMP},
       </if>
       <if test="orderType != null">
-        order_type = #{orderType,jdbcType=VARCHAR},
+        order_type = #{orderType,jdbcType=CHAR},
       </if>
       <if test="isBill != null">
-        is_bill = #{isBill,jdbcType=VARCHAR},
+        is_bill = #{isBill,jdbcType=CHAR},
       </if>
       <if test="isRefund != null">
-        is_refund = #{isRefund,jdbcType=VARCHAR},
+        is_refund = #{isRefund,jdbcType=CHAR},
       </if>
       <if test="arayacakAddress != null">
         arayacak_address = #{arayacakAddress,jdbcType=VARCHAR},
       </if>
       <if test="payType != null">
-        pay_type = #{payType,jdbcType=VARCHAR},
+        pay_type = #{payType,jdbcType=CHAR},
       </if>
       <if test="payOrderCode != null">
         pay_order_code = #{payOrderCode,jdbcType=VARCHAR},
@@ -401,13 +417,13 @@
         shop_name = #{shopName,jdbcType=VARCHAR},
       </if>
       <if test="closeType != null">
-        close_type = #{closeType,jdbcType=INTEGER},
+        close_type = #{closeType,jdbcType=CHAR},
       </if>
       <if test="userDelete != null">
-        user_delete = #{userDelete,jdbcType=VARCHAR},
+        user_delete = #{userDelete,jdbcType=CHAR},
       </if>
       <if test="isSettle != null">
-        is_settle = #{isSettle,jdbcType=VARCHAR},
+        is_settle = #{isSettle,jdbcType=CHAR},
       </if>
       <if test="faceKey != null">
         face_key = #{faceKey,jdbcType=VARCHAR},
@@ -415,11 +431,17 @@
       <if test="shopRemark != null">
         shop_remark = #{shopRemark,jdbcType=VARCHAR},
       </if>
-      <if test="orderOnline != null">
-        order_online = #{orderOnline,jdbcType=VARCHAR},
-      </if>
       <if test="statusRemark != null">
         status_remark = #{statusRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderOnline != null">
+        order_online = #{orderOnline,jdbcType=CHAR},
+      </if>
+      <if test="commission != null">
+        commission = #{commission,jdbcType=DECIMAL},
+      </if>
+      <if test="closeResion != null">
+        close_resion = #{closeResion,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -434,10 +456,10 @@
       user_key = #{userKey,jdbcType=VARCHAR},
       shop_key = #{shopKey,jdbcType=VARCHAR},
       order_money = #{orderMoney,jdbcType=DECIMAL},
-      order_status = #{orderStatus,jdbcType=VARCHAR},
-      order_source = #{orderSource,jdbcType=VARCHAR},
+      order_status = #{orderStatus,jdbcType=CHAR},
+      order_source = #{orderSource,jdbcType=CHAR},
       remark = #{remark,jdbcType=VARCHAR},
-      delivery_type = #{deliveryType,jdbcType=VARCHAR},
+      delivery_type = #{deliveryType,jdbcType=CHAR},
       user_name = #{userName,jdbcType=VARCHAR},
       telephone = #{telephone,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
@@ -447,22 +469,24 @@
       change_time = #{changeTime,jdbcType=TIMESTAMP},
       receiver_time = #{receiverTime,jdbcType=TIMESTAMP},
       close_time = #{closeTime,jdbcType=TIMESTAMP},
-      order_type = #{orderType,jdbcType=VARCHAR},
-      is_bill = #{isBill,jdbcType=VARCHAR},
-      is_refund = #{isRefund,jdbcType=VARCHAR},
+      order_type = #{orderType,jdbcType=CHAR},
+      is_bill = #{isBill,jdbcType=CHAR},
+      is_refund = #{isRefund,jdbcType=CHAR},
       arayacak_address = #{arayacakAddress,jdbcType=VARCHAR},
-      pay_type = #{payType,jdbcType=VARCHAR},
+      pay_type = #{payType,jdbcType=CHAR},
       pay_order_code = #{payOrderCode,jdbcType=VARCHAR},
       pay_time = #{payTime,jdbcType=TIMESTAMP},
       send_url = #{sendUrl,jdbcType=VARCHAR},
       shop_name = #{shopName,jdbcType=VARCHAR},
-      close_type = #{closeType,jdbcType=INTEGER},
-      user_delete = #{userDelete,jdbcType=VARCHAR},
-      is_settle = #{isSettle,jdbcType=VARCHAR},
+      close_type = #{closeType,jdbcType=CHAR},
+      user_delete = #{userDelete,jdbcType=CHAR},
+      is_settle = #{isSettle,jdbcType=CHAR},
       face_key = #{faceKey,jdbcType=VARCHAR},
       shop_remark = #{shopRemark,jdbcType=VARCHAR},
-      order_online = #{orderOnline,jdbcType=VARCHAR},
-      status_remark = #{statusRemark,jdbcType=VARCHAR}
+      status_remark = #{statusRemark,jdbcType=VARCHAR},
+      order_online = #{orderOnline,jdbcType=CHAR},
+      commission = #{commission,jdbcType=DECIMAL},
+      close_resion = #{closeResion,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <resultMap id="BaseResultMap" type="com.haozi.demo.springboot.bean.po.AquaticOrderUserInfo">
