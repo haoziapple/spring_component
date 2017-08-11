@@ -135,7 +135,6 @@
 
 	<build>
 		<plugins>
-
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -197,6 +196,21 @@
 					<source>1.7</source>
 					<target>1.7</target>
 					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<configuration>
+					<threshold>High</threshold>
+					<effort>default</effort>
+					<failOnError>true</failOnError>
+					<effort>Default</effort>
+					<findbugsXmlOutput>true</findbugsXmlOutput>
+					<!-- findbugs xml输出路径 -->
+					<findbugsXmlOutputDirectory>target/site</findbugsXmlOutputDirectory>
+					<!-- <excludeFilterFile>${project.basedir}/etc/findbug/excludeFilter.xml</excludeFilterFile> -->
 				</configuration>
 			</plugin>
 		</plugins>
