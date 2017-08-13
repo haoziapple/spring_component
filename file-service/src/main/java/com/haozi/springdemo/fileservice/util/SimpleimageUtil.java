@@ -32,7 +32,7 @@ public class SimpleimageUtil extends ImageUtil
 
 		try
 		{
-			ImageWrapper imageWrapper = ImageReadHelper.read(this._inStream);
+			ImageWrapper imageWrapper = ImageReadHelper.read(this.inStream);
 			int w = imageWrapper.getWidth();
 			int h = imageWrapper.getHeight();
 
@@ -104,7 +104,7 @@ public class SimpleimageUtil extends ImageUtil
 		InputStream is = this.getClass().getResourceAsStream(resourcePath);
 		StringBuilder result = new StringBuilder("");
 
-		byte bt[] = new byte[256];
+		byte[] bt = new byte[256];
 		try
 		{
 			while (is.read(bt) != -1)
@@ -114,7 +114,7 @@ public class SimpleimageUtil extends ImageUtil
 		}
 		catch (IOException e)
 		{
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 		finally
 		{

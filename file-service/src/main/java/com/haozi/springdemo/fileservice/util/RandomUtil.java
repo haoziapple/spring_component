@@ -14,6 +14,11 @@ public class RandomUtil
 	private static final String NUM = "0123456789";
 
 	private static final String TEXT = "0123456789abcdefghijklmnopqrstuvwxyz";
+	
+	private RandomUtil()
+	{
+		super();
+	}
 
 	/**
 	 * @Description:获取一定位数的随机字串-数字

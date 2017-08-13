@@ -1,20 +1,17 @@
 package com.haozi.springdemo.fileservice.util;
 
-import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 import org.apache.commons.io.IOUtils;
 
 public abstract class ImageUtil
 {
-	protected FileInputStream _inStream = null;
-	protected FileOutputStream _outStream = null;
-	protected String _src;
-	protected String _target;
+	protected FileInputStream inStream = null;
+	protected FileOutputStream outStream = null;
+	protected String srcPath;
+	protected String targetPath;
 
 	/**
 	 * @Description:初始化输入输出文件(绝对路径)
@@ -27,10 +24,10 @@ public abstract class ImageUtil
 	 */
 	public void init(String src, String target) throws IOException
 	{
-		this._src = src;
-		this._target = target;
-		_inStream = new FileInputStream(src);
-		_outStream = new FileOutputStream(target);
+		this.srcPath = src;
+		this.targetPath = target;
+		inStream = new FileInputStream(src);
+		outStream = new FileOutputStream(target);
 	}
 
 	/**
@@ -67,8 +64,8 @@ public abstract class ImageUtil
 	// 关闭文件流
 	protected void finish()
 	{
-		IOUtils.closeQuietly(_inStream);
-		IOUtils.closeQuietly(_outStream);
+		IOUtils.closeQuietly(inStream);
+		IOUtils.closeQuietly(outStream);
 
 	}
 

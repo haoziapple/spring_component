@@ -8,6 +8,8 @@ import javax.imageio.ImageIO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.haozi.springdemo.fileservice.common.SysErrMsg;
+
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.Thumbnails.Builder;
 import net.coobird.thumbnailator.geometry.Positions;
@@ -31,7 +33,7 @@ public class ThumbnailatorUtil extends ImageUtil
 		boolean result = false;
 		try
 		{
-			BufferedImage image = ImageIO.read(this._inStream);
+			BufferedImage image = ImageIO.read(this.inStream);
 			Builder<BufferedImage> builder = null;
 			int w = image.getWidth();
 			int h = image.getHeight();
@@ -73,7 +75,7 @@ public class ThumbnailatorUtil extends ImageUtil
 		}
 		catch (IOException e)
 		{
-			logger.error("IOException when reading or producing image", e);
+			logger.error(SysErrMsg.IMG_IO_ERR, e);
 		}
 		finally
 		{
@@ -90,14 +92,14 @@ public class ThumbnailatorUtil extends ImageUtil
 		try
 		{
 			// 按宽度同比例缩放
-			BufferedImage image = Thumbnails.of(this._inStream).width(width).asBufferedImage();
+			BufferedImage image = Thumbnails.of(this.inStream).width(width).asBufferedImage();
 			Builder<BufferedImage> builder = Thumbnails.of(image);
 			buildTargetImg(builder);
 			result = true;
 		}
 		catch (IOException e)
 		{
-			logger.error("IOException when reading or producing image", e);
+			logger.error(SysErrMsg.IMG_IO_ERR, e);
 		}
 		finally
 		{
@@ -115,14 +117,14 @@ public class ThumbnailatorUtil extends ImageUtil
 		try
 		{
 			// 按高度同比例缩放
-			BufferedImage image = Thumbnails.of(this._inStream).height(height).asBufferedImage();
+			BufferedImage image = Thumbnails.of(this.inStream).height(height).asBufferedImage();
 			Builder<BufferedImage> builder = Thumbnails.of(image);
 			buildTargetImg(builder);
 			result = true;
 		}
 		catch (IOException e)
 		{
-			logger.error("IOException when reading or producing image", e);
+			logger.error(SysErrMsg.IMG_IO_ERR, e);
 		}
 		finally
 		{
@@ -136,7 +138,7 @@ public class ThumbnailatorUtil extends ImageUtil
 	private void buildTargetImg(Builder<BufferedImage> builder) throws IOException
 	{
 		builder.scale(SCALE).outputQuality(QUALITY)
-				.outputFormat(this._target.substring(this._target.lastIndexOf(SPLIT) + 1))
-				.toOutputStream(this._outStream);
+				.outputFormat(this.targetPath.substring(this.targetPath.lastIndexOf(SPLIT) + 1))
+				.toOutputStream(this.outStream);
 	}
 }

@@ -123,7 +123,7 @@ public class UploadController
 	private String getFullPath(String subPath)
 	{
 		DateTime dateTime = new DateTime();
-		StringBuffer sb = new StringBuffer(uploadPath);
+		StringBuilder sb = new StringBuilder(uploadPath);
 
 		// subPath为业务相关的分目录
 		// subPath下按年/月/日期的三级分目录进行文件存放
