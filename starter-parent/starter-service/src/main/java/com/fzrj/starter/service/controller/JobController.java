@@ -16,12 +16,19 @@ import com.fzrj.starter.service.common.aop.AddLog;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+/**
+ * @className:com.fzrj.starter.service.controller.JobController
+ * @description:定时任务Controller，作为远程调用的示例，可删除
+ * @version:v1.0.0
+ * @date:2017年8月14日 下午6:02:07
+ * @author:WangHao
+ */
 @Api("定时任务api")
 @RestController
 @RequestMapping("/job")
 public class JobController
 {
-	private final static Logger logger = LoggerFactory.getLogger(JobController.class);
+	private static final Logger logger = LoggerFactory.getLogger(JobController.class);
 
 	@Autowired
 	private JobService jobService;

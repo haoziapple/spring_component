@@ -9,8 +9,6 @@ import com.alibaba.druid.util.StringUtils;
 
 public class IPUtil
 {
-	private final static Logger logger = LoggerFactory.getLogger(IPUtil.class);
-
 	/**
 	 * 获取IP地址
 	 * 
@@ -50,12 +48,18 @@ public class IPUtil
 		}
 
 		// //使用代理，则获取第一个IP地址
-		// if(StringUtils.isEmpty(ip) && ip.length() > 15) {
-		// if(ip.indexOf(",") > 0) {
-		// ip = ip.substring(0, ip.indexOf(","));
-		// }
-		// }
-
+		if (!StringUtils.isEmpty(ip) && ip.length() > 15 && ip.contains(","))
+		{
+			ip = ip.substring(0, ip.indexOf(','));
+		}
 		return ip;
 	}
+
+	private static final Logger logger = LoggerFactory.getLogger(IPUtil.class);
+
+	private IPUtil()
+	{
+		super();
+	}
+
 }

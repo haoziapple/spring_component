@@ -67,7 +67,7 @@
 			<appender-ref ref="LOGSTASH" />
 		</logger>
 
-		<root level="debug">
+		<root level="info">
 			<appender-ref ref="FILE" />
 		</root>
 	</springProfile>

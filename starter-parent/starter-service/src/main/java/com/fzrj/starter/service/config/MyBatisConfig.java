@@ -25,7 +25,7 @@ import com.alibaba.druid.pool.DruidDataSourceFactory;
  * @date:2017年5月18日 下午1:21:05
  * @author:WangHao
  */
-@Configuration
+//@Configuration
 @MapperScan(basePackages = "com.fzrj.starter.service.dao")
 @EnableTransactionManagement
 public class MyBatisConfig
