@@ -31,7 +31,7 @@ import com.haozi.springdemo.fileservice.config.PathConfig;
 @EnableAsync
 public class Application extends SpringBootServletInitializer
 {
-	private static final Logger logger = LoggerFactory.getLogger(Application.class);
+	private static final Logger log = LoggerFactory.getLogger(Application.class);
 
 	// jar包方式启动
 	public static void main(String[] args)
@@ -42,11 +42,12 @@ public class Application extends SpringBootServletInitializer
 		Arrays.sort(beanNames);
 		for (String beanName : beanNames)
 		{
-			logger.info("loaded bean's name: {}", beanName);
+			log.info("loaded bean's name: {}", beanName);
 		}
 
 		PathConfig test = ctx.getBean(PathConfig.class);
-		System.out.println(test.getMap());
+		if (log.isInfoEnabled())
+			log.info("load upload path map: {}", test.getMap().toString());
 	}
 
 	// war包方式启动
@@ -67,19 +68,17 @@ public class Application extends SpringBootServletInitializer
 		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
 		registrationBean.setFilter(new Filter()
 		{
-			// private String PASSHOSTS;
-
 			@Override
 			public void init(FilterConfig filterConfig) throws ServletException
 			{
-				// this.PASSHOSTS = filterConfig.getInitParameter("passIP");
+				log.info("filter initialize");
 			}
 
 			@Override
 			public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
 					FilterChain filterChain) throws IOException, ServletException
 			{
-				logger.info(servletRequest.getRemoteHost() + " enter the api filter");
+				log.info(servletRequest.getRemoteHost() + " enter the api filter");
 				filterChain.doFilter(new HttpServletRequestWrapper((HttpServletRequest) servletRequest)
 				{
 
@@ -92,7 +91,7 @@ public class Application extends SpringBootServletInitializer
 			@Override
 			public void destroy()
 			{
-
+				log.info("filter destroy");
 			}
 		});
 		registrationBean.addUrlPatterns("/api/*");
