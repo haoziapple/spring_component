@@ -1,17 +1,12 @@
 package com.fzrj.starter.service.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fzrj.starter.intf.bean.order.SubmitOrderInfo;
-import com.fzrj.starter.intf.bean.order.SubmitOrderRsp;
 import com.fzrj.starter.service.service.data1.Data1Service;
 import com.fzrj.starter.service.service.data2.Data2Service;
 import com.fzrj.starter.service.service.data3.Data3Service;
@@ -42,17 +37,16 @@ public class MultiDataController
 	private Data3Service data3Service;
 
 	@RequestMapping(value = "/test", method = RequestMethod.POST)
-	public SubmitOrderRsp test(SubmitOrderInfo reqInfo, BindingResult bindingResult, HttpServletRequest req)
+	public int test()
 	{
-		logger.info(req.getRemoteHost());
-		int i = data1Service.get();
-		logger.info("data1 get {}", i);
+		int i1 = data1Service.get();
+		logger.info("data1 get {}", i1);
 
-		i = data2Service.get();
-		logger.info("data2 get {}", i);
+		int i2 = data2Service.get();
+		logger.info("data2 get {}", i2);
 
-		i = data3Service.get();
-		logger.info("data3 get {}", i);
-		return new SubmitOrderRsp();
+		int i3 = data3Service.get();
+		logger.info("data3 get {}", i3);
+		return i1 + i2 + i3;
 	}
 }
