@@ -20,16 +20,23 @@ import com.fzrj.starter.service.common.util.HttpContextUtil;
 import com.fzrj.starter.service.common.util.IPUtil;
 import com.google.gson.Gson;
 
+/**
+ * @className:com.fzrj.starter.service.common.aop.AdviceLog
+ * @description:日志通知类，添加了#AddLog 的注解方法将统一由此类添加日志，若为Controller层方法会自动校验BindResult
+ * @version:v1.0.0
+ * @date:2017年8月15日 下午3:24:56
+ * @author:WangHao
+ */
 @Aspect
 @Component
 public class AdviceLog
 {
-	private final static Logger logger = LoggerFactory.getLogger(AdviceLog.class);
+	private static final Logger logger = LoggerFactory.getLogger(AdviceLog.class);
 
 	@Pointcut(value = "@annotation(com.fzrj.starter.service.common.aop.AddLog)")
 	public void pointcut()
 	{
-
+		// 使用注解定义切面
 	}
 
 	@Before(value = "pointcut()")
@@ -51,18 +58,17 @@ public class AdviceLog
 		logger.info("系统日志-rsp:{}", sysLog);
 	}
 
-    @AfterThrowing(value = "pointcut()", throwing = "e")
-    public void AfterThrowing(JoinPoint joinPoint, Throwable e)
-    {
-        Signature signature = joinPoint.getSignature();
-        String methodName = signature.getName();
-        String stuff = signature.toString();
-        String arguments = Arrays.toString(joinPoint.getArgs());
-        logger.info("Write something in the log... We have caught exception in method: "
-                + methodName + " with arguments "
-                + arguments + "\nand the full toString: " + stuff + "\nthe exception is: "
-                + e.getMessage(), e);
-    }
+	@AfterThrowing(value = "pointcut()", throwing = "e")
+	public void afterThrowing(JoinPoint joinPoint, Throwable e)
+	{
+		Signature signature = joinPoint.getSignature();
+		String methodName = signature.getName();
+		String stuff = signature.toString();
+		String arguments = Arrays.toString(joinPoint.getArgs());
+		logger.error(
+				"have caught exception in method: {} with arguments {} \nand the full toString: {} \nthe exception is: {}",
+				methodName, arguments, stuff, e.getMessage(), e);
+	}
 
 	/**
 	 * @Description:初始化系统日志实体
@@ -95,10 +101,11 @@ public class AdviceLog
 		Object[] args = joinPoint.getArgs();
 
 		Gson gson = new Gson();
-        if (args.length > 0) {
-            String params = gson.toJson(args[0]);
-            sysLog.setParams(params);
-        }
+		if (args.length > 0)
+		{
+			String params = gson.toJson(args[0]);
+			sysLog.setParams(params);
+		}
 
 		// 获取request
 		HttpServletRequest request = HttpContextUtil.getHttpServletRequest();
@@ -110,17 +117,21 @@ public class AdviceLog
 		return sysLog;
 	}
 
-    // Controller层校验请求参数，配合hibernate validator使用
-    private void validateReq(JoinPoint joinPoint) {
-        Object[] args = joinPoint.getArgs();
-        if (args.length > 1 && args[1] != null && args[1] instanceof BindingResult) {
-            BindingResult result = (BindingResult) args[1];
-            if (result.hasErrors())
-                throw new ParamException(result.getFieldError().getDefaultMessage());
-        } else if (args.length > 0 && args[0] instanceof BindingResult) {
-            BindingResult result = (BindingResult) args[0];
-            if (result.hasErrors())
-                throw new ParamException(result.getFieldError().getDefaultMessage());
-        }
-    }
+	// Controller层校验请求参数，配合hibernate validator使用
+	private void validateReq(JoinPoint joinPoint)
+	{
+		Object[] args = joinPoint.getArgs();
+		if (args.length > 1 && args[1] != null && args[1] instanceof BindingResult)
+		{
+			BindingResult result = (BindingResult) args[1];
+			if (result.hasErrors())
+				throw new ParamException(result.getFieldError().getDefaultMessage());
+		}
+		else if (args.length > 0 && args[0] instanceof BindingResult)
+		{
+			BindingResult result = (BindingResult) args[0];
+			if (result.hasErrors())
+				throw new ParamException(result.getFieldError().getDefaultMessage());
+		}
+	}
 }

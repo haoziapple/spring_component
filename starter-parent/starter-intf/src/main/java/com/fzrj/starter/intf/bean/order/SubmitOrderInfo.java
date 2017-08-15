@@ -1,5 +1,6 @@
 package com.fzrj.starter.intf.bean.order;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -19,8 +20,13 @@ import io.swagger.annotations.ApiModelProperty;
  */
 
 @ApiModel("提交订单请求bean")
-public class SubmitOrderInfo extends ReqBean
+public class SubmitOrderInfo extends ReqBean implements Serializable
 {
+
+	/**
+	*
+	*/
+	private static final long serialVersionUID = 1L;
 	@NotBlank(message = "用户id为空")
 	@ApiModelProperty("用户id")
 	private String userId;

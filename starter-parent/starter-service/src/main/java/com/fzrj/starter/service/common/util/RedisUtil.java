@@ -18,36 +18,46 @@ import org.springframework.stereotype.Component;
 @Component
 public class RedisUtil
 {
-	// 操作String类型key
+	// 操作String类型
 	@Autowired
 	StringRedisTemplate stringRedisTemplate;
 	@Resource(name = "stringRedisTemplate")
-	ValueOperations<String, String> valOpsStr;
+	ValueOperations<String, String> stringOps;
 
-	// 操作Object类型key
+	// 操作Object类型
 	@Autowired
-	RedisTemplate<Object, Object> redisTemplate;
-	@Resource(name = "redisTemplate")
-	ValueOperations<Object, Object> valOps;
+	RedisTemplate<String, Object> objRedisTemplate;
+	@Resource(name = "objRedisTemplate")
+	ValueOperations<String, Object> objOps;
 
-	public void setString(String key, String value)
+	public void set(String key, String value)
 	{
-		valOpsStr.set(key, value);
+		stringOps.set(key, value);
 	}
 
-	public String getString(String key)
+	public String get(String key)
 	{
-		return valOpsStr.get(key);
+		return stringOps.get(key);
 	}
 
-	public void setObj(String key, Object value)
+	public void set(String key, Object value)
 	{
-		valOps.set(key, value);
+		objOps.set(key, value);
 	}
 
 	public Object getObj(String key)
 	{
-		return valOps.get(key);
+		return objOps.get(key);
+	}
+
+	public void incr(String key, Long delta)
+	{
+		stringOps.increment(key, delta);
+	}
+
+	public void del(String key)
+	{
+		stringRedisTemplate.delete(key);
 	}
 
 }
