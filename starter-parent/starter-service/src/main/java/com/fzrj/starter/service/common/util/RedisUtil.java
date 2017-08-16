@@ -8,9 +8,12 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 /**
  * @className:com.fzrj.starter.service.common.util.RedisUtil
- * @description:redis工具类，通过注入使用,方法待丰富
+ * @description:redis工具类,通过注入使用,方法待丰富,对象序列化使用Gson
  * @version:v1.0.0
  * @date:2017年5月17日 下午4:41:33
  * @author:WangHao
@@ -18,12 +21,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class RedisUtil
 {
+	private final Gson gson = new GsonBuilder().create();
+
 	// 操作String类型
 	@Autowired
 	StringRedisTemplate stringRedisTemplate;
 	@Resource(name = "stringRedisTemplate")
 	ValueOperations<String, String> stringOps;
-
 	// 操作Object类型
 	@Autowired
 	RedisTemplate<String, Object> objRedisTemplate;
@@ -59,5 +63,4 @@ public class RedisUtil
 	{
 		stringRedisTemplate.delete(key);
 	}
-
 }

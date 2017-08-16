@@ -81,13 +81,9 @@ public class RedisUtilTest
 	{
 		try
 		{
-			redisUtil.set(KEY, new SubmitOrderInfo()
-			{
-				{
-					setId("testId");
-					setToken("testToken");
-				}
-			});
+			SubmitOrderInfo info = new SubmitOrderInfo();
+			info.setId("id");
+			redisUtil.set(KEY, info);
 			System.out.println("testSetObj: " + redisUtil.getObj(KEY));
 		}
 		catch (Exception e)
@@ -101,13 +97,9 @@ public class RedisUtilTest
 	{
 		try
 		{
-			redisUtil.set(KEY, new SubmitOrderInfo()
-			{
-				{
-					setId("testId");
-					setToken("testToken");
-				}
-			});
+			SubmitOrderInfo info = new SubmitOrderInfo();
+			info.setId("id");
+			redisUtil.set(KEY, info);
 			System.out.println("testGetObj: " + redisUtil.get(KEY));
 		}
 		catch (Exception e)
