@@ -20,7 +20,7 @@ import com.alibaba.druid.pool.DruidDataSourceFactory;
 
 /**
  * @className:com.fzrj.starter.service.config.MyBatisConfig
- * @description:mybatis配置bean
+ * @description:mybatis配置bean，使用多数据源时将@Configuration注释掉(请谨慎使用多数据源!)
  * @version:v1.0.0
  * @date:2017年5月18日 下午1:21:05
  * @author:WangHao

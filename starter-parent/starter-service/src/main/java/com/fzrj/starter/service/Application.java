@@ -11,6 +11,7 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationContext;
 
 import com.fzrj.starter.service.config.CorsConfig;
+import com.fzrj.starter.service.config.mq.RedisMqMapping;
 
 /**
  * @className:com.fzrj.starter.service.Application
@@ -38,6 +39,8 @@ public class Application extends SpringBootServletInitializer
 		}
 		CorsConfig config = ctx.getBean(CorsConfig.class);
 		log.info("cors allow mapping: {}, allow domains: {}", config.getAllowMapping(), config.getAllow());
+		RedisMqMapping mapping = ctx.getBean(RedisMqMapping.class);
+		log.info("Redis MQ mapping: {}", mapping.getMap());
 	}
 
 	// war包方式启动

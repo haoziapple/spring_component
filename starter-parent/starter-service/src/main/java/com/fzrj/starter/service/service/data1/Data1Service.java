@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fzrj.starter.intf.bean.common.ReqBean;
 import com.fzrj.starter.service.bmo.MultiDataBMO;
 
 /**
@@ -22,9 +23,9 @@ public class Data1Service
 	@Autowired
 	private MultiDataBMO multiDataBMO;
 
-	public int get()
+	public int get(ReqBean req)
 	{
-		logger.info("data1Service");
+		logger.info("data1Service, req: {}", req);
 		return multiDataBMO.get1();
 	}
 }

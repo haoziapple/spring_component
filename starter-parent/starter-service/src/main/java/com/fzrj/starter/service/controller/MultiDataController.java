@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fzrj.starter.intf.bean.common.ReqBean;
 import com.fzrj.starter.service.service.data1.Data1Service;
 import com.fzrj.starter.service.service.data2.Data2Service;
 import com.fzrj.starter.service.service.data3.Data3Service;
@@ -39,13 +40,13 @@ public class MultiDataController
 	@RequestMapping(value = "/test", method = RequestMethod.POST)
 	public int test()
 	{
-		int i1 = data1Service.get();
+		int i1 = data1Service.get(new ReqBean());
 		logger.info("data1 get {}", i1);
 
-		int i2 = data2Service.get();
+		int i2 = data2Service.get(new ReqBean());
 		logger.info("data2 get {}", i2);
 
-		int i3 = data3Service.get();
+		int i3 = data3Service.get(new ReqBean());
 		logger.info("data3 get {}", i3);
 		return i1 + i2 + i3;
 	}

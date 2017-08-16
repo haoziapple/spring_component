@@ -23,7 +23,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class CorsConfig
 {
 	private List<String> allow;
-	
+
 	private String allowMapping;
 
 	public List<String> getAllow()
@@ -54,11 +54,8 @@ public class CorsConfig
 			@Override
 			public void addCorsMappings(CorsRegistry registry)
 			{
-				registry.addMapping(allowMapping)
-					.allowedOrigins(allow.toArray(new String[0]))
-					.allowedMethods("GET", "POST")
-					.allowedHeaders("*")
-					.allowCredentials(true).maxAge(1800);
+				registry.addMapping(allowMapping).allowedOrigins(allow.toArray(new String[0]))
+						.allowedMethods("GET", "POST").allowedHeaders("*").allowCredentials(true).maxAge(1800);
 			}
 		};
 	}

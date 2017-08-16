@@ -84,7 +84,7 @@ public class RedisUtilTest
 			SubmitOrderInfo info = new SubmitOrderInfo();
 			info.setId("id");
 			redisUtil.set(KEY, info);
-			System.out.println("testSetObj: " + redisUtil.getObj(KEY));
+			System.out.println("testSetObj: " + redisUtil.getObj(KEY, SubmitOrderInfo.class));
 		}
 		catch (Exception e)
 		{
@@ -114,7 +114,6 @@ public class RedisUtilTest
 		System.out.println("testDel: " + redisUtil.get(KEY));
 		redisUtil.del(KEY);
 		assertNull(redisUtil.get(KEY));
-		assertNull(redisUtil.getObj(KEY));
 	}
 
 	@Test
@@ -127,6 +126,19 @@ public class RedisUtilTest
 			redisUtil.incr(KEY, 5L);
 			assertEquals("incr fail", "28", redisUtil.get(KEY));
 			System.out.println("testIncr: " + redisUtil.get(KEY));
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public final void testSendMsg()
+	{
+		try
+		{
+			redisUtil.sendMsg(new String[] { "starter-demo" }, "testMsg-王昊");
 		}
 		catch (Exception e)
 		{
