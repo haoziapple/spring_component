@@ -3,6 +3,7 @@
 #set( $symbol_escape = '\' )
 package ${package}.service.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ${package}.intf.OrderIntf;
+import ${package}.intf.bean.common.Page;
 import ${package}.intf.bean.order.SubmitOrderInfo;
 import ${package}.intf.bean.order.SubmitOrderRsp;
 import ${package}.service.dao.AquaticOrderUserInfoMapper;
@@ -51,6 +53,19 @@ public class OrderService implements OrderIntf
 		BeanUtils.copyProperties(record, rsp);
 		rsp.setOrderId(record.getOrderCode());
 		return rsp;
+	}
+	
+	@Transactional
+	@Override
+	public Page<SubmitOrderRsp> queryOrder(String userId, int pageNo, int pageSize)
+	{
+		// 获取起始start
+		int start = Page.getStartOfPage(pageNo, pageSize);
+		// 从数据库中查出list
+		List<SubmitOrderRsp> list = null;
+		// 从数据库中查出总条数
+		long count = 1L;
+		return new Page<>(start, count, pageSize, list);
 	}
 
 }

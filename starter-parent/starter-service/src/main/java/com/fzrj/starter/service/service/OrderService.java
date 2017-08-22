@@ -1,5 +1,6 @@
 package com.fzrj.starter.service.service;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fzrj.starter.intf.OrderIntf;
+import com.fzrj.starter.intf.bean.common.Page;
 import com.fzrj.starter.intf.bean.order.SubmitOrderInfo;
 import com.fzrj.starter.intf.bean.order.SubmitOrderRsp;
 import com.fzrj.starter.service.dao.AquaticOrderUserInfoMapper;
@@ -25,7 +27,7 @@ import com.fzrj.starter.service.po.AquaticOrderUserInfo;
 @Service
 public class OrderService implements OrderIntf
 {
-	private final static Logger logger = LoggerFactory.getLogger(OrderService.class);
+	private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
 
 	@Autowired
 	private AquaticOrderUserInfoMapper aquaticOrderUserInfoMapper;
@@ -48,6 +50,19 @@ public class OrderService implements OrderIntf
 		BeanUtils.copyProperties(record, rsp);
 		rsp.setOrderId(record.getOrderCode());
 		return rsp;
+	}
+
+	@Transactional
+	@Override
+	public Page<SubmitOrderRsp> queryOrder(String userId, int pageNo, int pageSize)
+	{
+		// 获取起始start
+		int start = Page.getStartOfPage(pageNo, pageSize);
+		// 从数据库中查出list
+		List<SubmitOrderRsp> list = null;
+		// 从数据库中查出总条数
+		long count = 1L;
+		return new Page<>(start, count, pageSize, list);
 	}
 
 }
