@@ -1,7 +1,7 @@
 #set( $symbol_pound = '#' )
 #set( $symbol_dollar = '$' )
 #set( $symbol_escape = '\' )
-package com.fzrj.starter.intf.bean.common;
+package ${package}.intf.bean.common;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @className:com.fzrj.starter.intf.bean.common.Page
+ * @className:${package}.intf.bean.common.Page
  * @description:泛型分页bean
  * @version:v1.0.0
  * @date:2017年8月22日 上午10:36:46
