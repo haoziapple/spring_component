@@ -1,15 +1,13 @@
 package com.haozi.component.oastruct.service.common.util.tree;
 
+import com.google.gson.Gson;
+import com.haozi.component.oastruct.intf.bean.order.SubmitOrderInfo;
 import com.haozi.component.oastruct.service.common.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Administrator on 2017/8/24.
@@ -28,18 +26,27 @@ public class TreeByRedis implements TreeStructUtil {
     // 存储节点所有子节点的key前缀
     private static final String S_HEIRS_KEY = "tree:heirs_S:";
 
+    // 根节点名称
+    public static final String ROOT = "root";
+
+    // 初始化根节点
+    @Override
+    public void initRoot() {
+        // 初始化路径信息， root的路径也是root
+        redisUtil.hSet(H_PATH_KEY, ROOT, ROOT);
+    }
 
     @Override
     public void addNode(String node, String parent) {
         // 获取父节点的路径
         String parentPath = this.getPath(parent);
 
-        if (StringUtils.isEmpty(parentPath)) {
+        if (!StringUtils.isEmpty(parentPath)) {
             Set<String> set = new HashSet<>();
             set.add(node);
 
             // 获取所有需要添加子节点的节点
-            String[] nodesToAdd = parentPath.substring(1).split(PATH_SPLIT);
+            String[] nodesToAdd = parentPath.split(PATH_SPLIT);
             // 循环添加
             for (String n : nodesToAdd) {
                 redisUtil.sAdd(S_HEIRS_KEY + n, set);
@@ -77,18 +84,55 @@ public class TreeByRedis implements TreeStructUtil {
 
     @Override
     public void delNode(String node, boolean inherit) {
-
+        if (inherit) {
+            // 遗传性删除，所有子节点也删除
+            // TODO
+        } else {
+            // 非遗传性删除，所有子节点挂到上一级的父节点下
+            // TODO
+        }
     }
 
     @Override
     public void moveNode(String node, String targetParent, boolean inherit) {
-
+        if (inherit) {
+            // 遗传性移动，所有子节点跟随一起移动
+            // TODO
+        } else {
+            // 非遗传性移动，所有子节点挂到上一级的父节点下
+            // TODO
+        }
     }
+
+    // 将某个节点的所有子节点移动到新的父节点下面
+    @Override
+    public void moveAllChilds(String sourceNode, String targetNode) {
+        Set<String> sourceSet = new HashSet<>(Arrays.asList(this.getPath(sourceNode).split(PATH_SPLIT)));
+        Set<String> targetSet= new HashSet<>(Arrays.asList(this.getPath(sourceNode).split(PATH_SPLIT)));
+
+        // 求交集, 交集里节点的子节点不需变更
+        Set<String> reset = new HashSet<>();
+        reset.clear();
+        reset.addAll(sourceSet);
+        reset.retainAll(targetSet);
+    }
+
 
     public static void main(String[] args) {
         String s = "/1/3/4";
         String[] t = s.substring(1).split(PATH_SPLIT);
         System.out.println(t);
-    }
 
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(new SubmitOrderInfo() {
+            {
+                setId("id");
+                setToken("token");
+                setUserId("userId");
+                setTotalPrice("totalPrice");
+            }
+        }, SubmitOrderInfo.class);
+
+        System.out.println(jsonStr);
+    }
 }

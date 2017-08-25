@@ -25,4 +25,10 @@ public interface TreeStructUtil {
 
     // 移动一个节点
     void moveNode(String node, String targetParent, boolean inherit);
+
+    // 初始化根节点
+    void initRoot();
+
+    // 移动所有子节点
+    void moveAllChilds(String sourceNode, String targetNode);
 }

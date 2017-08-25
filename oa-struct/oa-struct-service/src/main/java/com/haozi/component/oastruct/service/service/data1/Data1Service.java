@@ -3,6 +3,7 @@ package com.haozi.component.oastruct.service.service.data1;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.haozi.component.oastruct.intf.bean.common.ReqBean;
@@ -23,6 +24,7 @@ public class Data1Service
 	@Autowired
 	private MultiDataBMO multiDataBMO;
 
+	@Async
 	public int get(ReqBean req)
 	{
 		logger.info("data1Service, req: {}", req);
