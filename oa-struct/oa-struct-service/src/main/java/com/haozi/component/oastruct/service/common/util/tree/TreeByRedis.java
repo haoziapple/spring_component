@@ -111,10 +111,34 @@ public class TreeByRedis implements TreeStructUtil {
         Set<String> targetSet= new HashSet<>(Arrays.asList(this.getPath(sourceNode).split(PATH_SPLIT)));
 
         // 求交集, 交集里节点的子节点不需变更
-        Set<String> reset = new HashSet<>();
-        reset.clear();
-        reset.addAll(sourceSet);
-        reset.retainAll(targetSet);
+        Set<String> commonSet = new HashSet<>();
+        commonSet.clear();
+        commonSet.addAll(sourceSet);
+        commonSet.retainAll(targetSet);
+
+        sourceSet.removeAll(commonSet);
+        targetSet.removeAll(commonSet);
+        Set<String> childsSet = this.getChilds(sourceNode);
+        for(String source:sourceSet)
+        {
+            redisUtil.sAdd(S_HEIRS_KEY+source,childsSet);
+        }
+        for(String target:targetSet)
+        {
+            redisUtil.sRem(S_HEIRS_KEY+target,childsSet);
+        }
+
+        String sourcePath = this.getPath(sourceNode);
+        String targetPath = this.getPath(targetNode);
+
+        Map<String, String> pathMap = new HashMap<>();
+        for(String child:childsSet)
+        {
+            pathMap.put(child,this.getPath(child).replaceFirst(sourcePath, targetPath));
+        }
+
+        redisUtil.hmSet(H_PATH_KEY,pathMap);
+
     }
 
 
