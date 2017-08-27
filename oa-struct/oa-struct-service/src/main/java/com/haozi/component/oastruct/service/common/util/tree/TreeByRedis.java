@@ -14,9 +14,8 @@ import java.util.*;
  */
 @Component
 public class TreeByRedis implements TreeStructUtil {
-    @Autowired
-    private RedisUtil redisUtil;
-
+    // 根节点名称
+    public static final String ROOT = "root";
     // 路径分隔符
     private static final String PATH_SPLIT = "/";
 
@@ -25,9 +24,26 @@ public class TreeByRedis implements TreeStructUtil {
 
     // 存储节点所有子节点的key前缀
     private static final String S_HEIRS_KEY = "tree:heirs_S:";
+    @Autowired
+    private RedisUtil redisUtil;
 
-    // 根节点名称
-    public static final String ROOT = "root";
+    public static void main(String[] args) {
+        String s = "/1/3/4";
+        String[] t = s.substring(1).split(PATH_SPLIT);
+        System.out.println(t);
+
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(new SubmitOrderInfo() {
+            {
+                setId("id");
+                setToken("token");
+                setUserId("userId");
+                setTotalPrice("totalPrice");
+            }
+        }, SubmitOrderInfo.class);
+
+        System.out.println(jsonStr);
+    }
 
     // 初始化根节点
     @Override
@@ -108,7 +124,7 @@ public class TreeByRedis implements TreeStructUtil {
     @Override
     public void moveAllChilds(String sourceNode, String targetNode) {
         Set<String> sourceSet = new HashSet<>(Arrays.asList(this.getPath(sourceNode).split(PATH_SPLIT)));
-        Set<String> targetSet= new HashSet<>(Arrays.asList(this.getPath(sourceNode).split(PATH_SPLIT)));
+        Set<String> targetSet = new HashSet<>(Arrays.asList(this.getPath(sourceNode).split(PATH_SPLIT)));
 
         // 求交集, 交集里节点的子节点不需变更
         Set<String> commonSet = new HashSet<>();
@@ -119,44 +135,22 @@ public class TreeByRedis implements TreeStructUtil {
         sourceSet.removeAll(commonSet);
         targetSet.removeAll(commonSet);
         Set<String> childsSet = this.getChilds(sourceNode);
-        for(String source:sourceSet)
-        {
-            redisUtil.sAdd(S_HEIRS_KEY+source,childsSet);
+        for (String source : sourceSet) {
+            redisUtil.sAdd(S_HEIRS_KEY + source, childsSet);
         }
-        for(String target:targetSet)
-        {
-            redisUtil.sRem(S_HEIRS_KEY+target,childsSet);
+        for (String target : targetSet) {
+            redisUtil.sRem(S_HEIRS_KEY + target, childsSet);
         }
 
         String sourcePath = this.getPath(sourceNode);
         String targetPath = this.getPath(targetNode);
 
         Map<String, String> pathMap = new HashMap<>();
-        for(String child:childsSet)
-        {
-            pathMap.put(child,this.getPath(child).replaceFirst(sourcePath, targetPath));
+        for (String child : childsSet) {
+            pathMap.put(child, this.getPath(child).replaceFirst(sourcePath, targetPath));
         }
 
-        redisUtil.hmSet(H_PATH_KEY,pathMap);
+        redisUtil.hmSet(H_PATH_KEY, pathMap);
 
-    }
-
-
-    public static void main(String[] args) {
-        String s = "/1/3/4";
-        String[] t = s.substring(1).split(PATH_SPLIT);
-        System.out.println(t);
-
-        Gson gson = new Gson();
-        String jsonStr = gson.toJson(new SubmitOrderInfo() {
-            {
-                setId("id");
-                setToken("token");
-                setUserId("userId");
-                setTotalPrice("totalPrice");
-            }
-        }, SubmitOrderInfo.class);
-
-        System.out.println(jsonStr);
     }
 }
