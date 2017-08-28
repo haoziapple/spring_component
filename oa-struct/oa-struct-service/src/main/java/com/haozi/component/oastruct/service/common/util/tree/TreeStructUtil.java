@@ -20,6 +20,12 @@ public interface TreeStructUtil {
     // 获取一个节点下的所有子节点
     Set<String> getChilds(String parentNode);
 
+    // 获取直接子节点
+    Set<String> getN1Childs(String parentNode);
+
+    // 获取父节点
+    String getParent(String node);
+
     // 删除一个节点
     void delNode(String node, boolean inherit);
 

@@ -44,18 +44,44 @@ public class TreeByRedisTest {
 
     @Test
     public void getChilds() throws Exception {
+        System.out.println(treeUtil.getChilds(TreeByRedis.ROOT));
+    }
+
+    @Test
+    public void getN1Childs() throws Exception {
+        System.out.println(treeUtil.getN1Childs(TreeByRedis.ROOT));
+    }
+
+    @Test
+    public void getParent() throws Exception {
+        System.out.println("3 node parent: " + treeUtil.getParent("3"));
+        System.out.println("5 node parent: " + treeUtil.getParent("5"));
+        System.out.println("8 node parent: " + treeUtil.getParent("8"));
+        // 尝试获取不存在的节点的父类
+//        System.out.println("9 node parent: " + treeUtil.getParent("9"));
     }
 
     @Test
     public void delNode() throws Exception {
+        System.out.println("before del, total tree: " + treeUtil.getTree(TreeByRedis.ROOT));
+        treeUtil.delNode("-1", true);
+        System.out.println("after del, total tree: " + treeUtil.getTree(TreeByRedis.ROOT));
     }
 
     @Test
     public void moveNode() throws Exception {
+        System.out.println("before move, total tree: " + treeUtil.getTree(TreeByRedis.ROOT));
+        treeUtil.moveNode("DEP1", "root", true);
+        System.out.println("after move, total tree: " + treeUtil.getTree(TreeByRedis.ROOT));
     }
 
     @Test
     public void moveAllChilds() throws Exception {
+        System.out.println("before move, 5 childs: " + treeUtil.getChilds("5"));
+        System.out.println("before move, 2 childs: " + treeUtil.getChilds("2"));
+        treeUtil.moveAllChilds("5", "2");
+        System.out.println("after move, 5 childs: " + treeUtil.getChilds("5"));
+        System.out.println("after move, 2 childs: " + treeUtil.getChilds("2"));
     }
 
     @Test
@@ -65,8 +91,8 @@ public class TreeByRedisTest {
 //        treeUtil.addNode("2", TreeByRedis.ROOT);
 //        treeUtil.addNode("3", TreeByRedis.ROOT);
 //
-//        treeUtil.addNode("4", "1");
-//        treeUtil.addNode("5", "1");
+//        treeUtil.moveNode("4", "1", false);
+//        treeUtil.moveNode("5", "1", false);
 //
 //        treeUtil.addNode("6", "5");
 //        treeUtil.addNode("7", "5");
