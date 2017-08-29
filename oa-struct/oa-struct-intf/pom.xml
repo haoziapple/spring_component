@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.haozi.component</groupId>
 		<artifactId>oa-struct</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.0.1</version>
 	</parent>
 	<!-- 定义对外开放的接口 -->
 	<artifactId>oa-struct-intf</artifactId>

@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.haozi.component</groupId>
 		<artifactId>oa-struct</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.0.1</version>
 	</parent>
 	<artifactId>oa-struct-service</artifactId>
 	<name>oa-struct-service</name>
@@ -95,7 +95,7 @@
 		<dependency>
 			<groupId>com.haozi.component</groupId>
 			<artifactId>oa-struct-intf</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.1</version>
 		</dependency>
 
 		<!-- 定时任务 -->
