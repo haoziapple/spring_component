@@ -199,4 +199,8 @@ public class Page<E>
 	{
 		return (pageNo - 1) * pageSize;
 	}
+
+	public static void main(String[] args) {
+		System.out.println();
+	}
 }
