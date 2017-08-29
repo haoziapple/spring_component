@@ -17,6 +17,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.haozi.component.oastruct.service.Application;
 
+import javax.validation.constraints.AssertTrue;
 import java.util.*;
 
 /**
@@ -211,7 +212,7 @@ public class RedisUtilTest {
     @Test
     public final void testClearDB() {
         redisUtil.clearDB();
+        Set<String> leftSet = stringRedisTemplate.keys("*");
+        assertTrue(leftSet.isEmpty());
     }
-
-
 }

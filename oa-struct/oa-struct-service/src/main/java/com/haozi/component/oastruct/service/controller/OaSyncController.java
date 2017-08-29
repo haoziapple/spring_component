@@ -37,7 +37,7 @@ public class OaSyncController {
 
     // 同步OA系统的部门树形结构
     // 服务启动后延迟10秒，间隔5分钟执行
-//    @Scheduled(fixedDelay = 5 * 6 * 10000L, initialDelay = 10000L)
+    @Scheduled(fixedDelay = 5 * 6 * 10000L, initialDelay = 10000L)
     public void SyncDeptTree() {
         logger.info("SyncDeptTree started at {}", new Date());
         this.toAsyncNodes.add(TreeByRedis.ROOT);
