@@ -49,20 +49,6 @@
 
 	<!-- 测试环境 -->
 	<springProfile name="test">
-		<!-- 输出到日志服务器 -->
-		<appender name="LOGSTASH" class="com.cwbase.logback.RedisAppender">
-			<source>${PROJECT}</source>
-			<type>test</type>
-			<host>10.108.26.220</host>
-			<port>7007</port>
-			<key>logstash</key>
-			<!-- 这个Key是Redis List的Key，需要和Logstash读取Redis的Key匹配 -->
-			<tags>starter</tags>
-			<mdc>true</mdc>
-			<location>true</location>
-			<callerStackIndex>0</callerStackIndex>
-		</appender>
-
 		<logger name="${PACKAGE}" level="info">
 			<appender-ref ref="LOGSTASH" />
 		</logger>

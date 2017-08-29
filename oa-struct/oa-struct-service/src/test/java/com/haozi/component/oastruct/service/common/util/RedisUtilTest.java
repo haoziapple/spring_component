@@ -2,6 +2,7 @@ package com.haozi.component.oastruct.service.common.util;
 
 import static org.junit.Assert.*;
 
+import com.haozi.component.oastruct.intf.bean.common.ReqBean;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -10,10 +11,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.haozi.component.oastruct.intf.bean.order.SubmitOrderInfo;
 import com.haozi.component.oastruct.service.Application;
 
 import java.util.*;
@@ -34,6 +35,9 @@ public class RedisUtilTest {
     private static final String VALUE = "testValue";
     @Autowired
     private RedisUtil redisUtil;
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
@@ -74,10 +78,10 @@ public class RedisUtilTest {
     @Test
     public final void testSetObj() {
         try {
-            SubmitOrderInfo info = new SubmitOrderInfo();
+            ReqBean info = new ReqBean();
             info.setId("id");
             redisUtil.set(KEY, info);
-            System.out.println("testSetObj: " + redisUtil.getObj(KEY, SubmitOrderInfo.class));
+            System.out.println("testSetObj: " + redisUtil.getObj(KEY, ReqBean.class));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -86,7 +90,7 @@ public class RedisUtilTest {
     @Test
     public final void testGetObj() {
         try {
-            SubmitOrderInfo info = new SubmitOrderInfo();
+            ReqBean info = new ReqBean();
             info.setId("id");
             redisUtil.set(KEY, info);
             System.out.println("testGetObj: " + redisUtil.get(KEY));
@@ -203,5 +207,11 @@ public class RedisUtilTest {
     public final void testSMove() {
         System.out.println(redisUtil.sMove("tree:heirs_S:1", "2", "tree:heirs_S:2"));
     }
+
+    @Test
+    public final void testClearDB() {
+        redisUtil.clearDB();
+    }
+
 
 }

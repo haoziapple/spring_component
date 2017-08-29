@@ -64,14 +64,14 @@ public class TreeByRedisTest {
     @Test
     public void delNode() throws Exception {
         System.out.println("before del, total tree: " + treeUtil.getTree(TreeByRedis.ROOT));
-        treeUtil.delNode("-1", true);
+        treeUtil.delNode("DEP1", true);
         System.out.println("after del, total tree: " + treeUtil.getTree(TreeByRedis.ROOT));
     }
 
     @Test
     public void moveNode() throws Exception {
         System.out.println("before move, total tree: " + treeUtil.getTree(TreeByRedis.ROOT));
-        treeUtil.moveNode("DEP1", "root", true);
+        treeUtil.moveNode("DEP1", "-1", true);
         System.out.println("after move, total tree: " + treeUtil.getTree(TreeByRedis.ROOT));
     }
 

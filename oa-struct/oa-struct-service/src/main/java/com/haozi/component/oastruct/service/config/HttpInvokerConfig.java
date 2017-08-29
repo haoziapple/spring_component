@@ -8,7 +8,6 @@ import org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean;
 import org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter;
 
 import com.aquatic.schedule.service.remote.JobService;
-import com.haozi.component.oastruct.intf.OrderIntf;
 
 /**
  * @className:com.haozi.component.oastruct.service.config.HttpInvokerConfig
@@ -22,19 +21,6 @@ public class HttpInvokerConfig
 {
 	@Value("${remote.jobservice.url}")
 	private String jobServiceUrl;
-
-	@Autowired
-	private OrderIntf orderIntf;
-
-	// 暴露的订单服务
-	@Bean(name = "/orderService")
-	public HttpInvokerServiceExporter exportOrderService()
-	{
-		HttpInvokerServiceExporter expoter = new HttpInvokerServiceExporter();
-		expoter.setService(orderIntf);
-		expoter.setServiceInterface(OrderIntf.class);
-		return expoter;
-	}
 
 	// 调用远程定时器服务
 	@Bean

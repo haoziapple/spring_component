@@ -2,6 +2,8 @@ package com.haozi.component.oastruct.service.common.util;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -32,11 +34,8 @@ public class RedisUtil {
     StringRedisTemplate stringRedisTemplate;
     @Resource(name = "stringRedisTemplate")
     ValueOperations<String, String> stringOps;
-    // 操作Object类型,暂不在此工具类中使用
-    @Autowired
-    RedisTemplate<String, Object> objRedisTemplate;
-    @Resource(name = "objRedisTemplate")
-    ValueOperations<String, Object> objOps;
+
+    private static final Logger logger = LoggerFactory.getLogger(RedisUtil.class);
 
     /**
      * @param key
@@ -173,4 +172,12 @@ public class RedisUtil {
     public boolean sMove(String key, String value, String destKey) {
         return stringRedisTemplate.opsForSet().move(key, value, destKey);
     }
+
+    // 清空redis，慎用！
+    public void clearDB() {
+        Set<String> keys = stringRedisTemplate.keys("*");
+        logger.info("keys to delete: {}", keys);
+        stringRedisTemplate.delete(keys);
+    }
+
 }

@@ -1,7 +1,6 @@
 package com.haozi.component.oastruct.service.common.util.tree;
 
 import com.google.gson.Gson;
-import com.haozi.component.oastruct.intf.bean.order.SubmitOrderInfo;
 import com.haozi.component.oastruct.service.common.util.RedisUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,18 +34,6 @@ public class TreeByRedis implements TreeStructUtil {
         String s = "/1/3/4";
         String[] t = s.substring(1).split(PATH_SPLIT);
         System.out.println(t);
-
-        Gson gson = new Gson();
-        String jsonStr = gson.toJson(new SubmitOrderInfo() {
-            {
-                setId("id");
-                setToken("token");
-                setUserId("userId");
-                setTotalPrice("totalPrice");
-            }
-        }, SubmitOrderInfo.class);
-
-        System.out.println(jsonStr);
     }
 
     // 初始化根节点
@@ -160,12 +147,20 @@ public class TreeByRedis implements TreeStructUtil {
             String sourceParent = this.getParent(node);
             String sourcePath = this.getPath(sourceParent);
             Set<String> sourceSet = new HashSet<>(Arrays.asList(sourcePath.split(PATH_SPLIT)));
+
+            // 删除父节点的后代信息
             for (String source : sourceSet) {
                 redisUtil.sRem(S_HEIRS_KEY + source, childsSet);
             }
+            // 子节点的所有后代信息直接删除
             for (String child : childsSet) {
                 redisUtil.del(S_HEIRS_KEY + child);
             }
+
+            // 删除子节点的路径信息
+            List<Object> childsList = new ArrayList<>();
+            Collections.addAll(childsList, childsSet.toArray());
+            redisUtil.hDel(H_PATH_KEY, childsList);
 
         } else {
             // 非遗传性删除，所有子节点挂到上一级的父节点下
