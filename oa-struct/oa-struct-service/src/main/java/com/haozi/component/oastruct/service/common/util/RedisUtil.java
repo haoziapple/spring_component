@@ -111,7 +111,7 @@ public class RedisUtil {
     }
 
     /**
-     * @param topic
+     * @param topics
      * @param msg
      * @Description:发布消息
      * @version:v1.0
