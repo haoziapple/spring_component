@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -28,9 +29,8 @@ import com.alibaba.druid.pool.DruidDataSourceFactory;
 @Configuration
 @MapperScan(basePackages = "com.haozi.component.oastruct.service.dao")
 @EnableTransactionManagement
-public class MyBatisConfig
+public class MyBatisConfig implements EnvironmentAware
 {
-	@Autowired
 	private Environment env;
 
 	/**
@@ -71,5 +71,15 @@ public class MyBatisConfig
 	public PlatformTransactionManager transactionManager(DataSource dataSource) throws Exception
 	{
 		return new DataSourceTransactionManager(dataSource);
+	}
+
+	/**
+	 * Set the {@code Environment} that this object runs in.
+	 *
+	 * @param environment
+	 */
+	@Override
+	public void setEnvironment(Environment environment) {
+		this.env=environment;
 	}
 }

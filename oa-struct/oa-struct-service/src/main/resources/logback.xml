@@ -49,12 +49,14 @@
 
 	<!-- 测试环境 -->
 	<springProfile name="test">
-		<logger name="${PACKAGE}" level="info">
-			<appender-ref ref="LOGSTASH" />
-		</logger>
-
+		<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+			<encoder>
+				<pattern>${PATTERN}</pattern>
+			</encoder>
+		</appender>
 		<root level="info">
 			<appender-ref ref="FILE" />
+			<appender-ref ref="STDOUT" />
 		</root>
 	</springProfile>
 </configuration>  
