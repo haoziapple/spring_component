@@ -9,7 +9,7 @@
 	<artifactId>oa-struct-service</artifactId>
 	<name>oa-struct-service</name>
 	<url>http://maven.apache.org</url>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
