@@ -59,4 +59,17 @@
 			<appender-ref ref="STDOUT" />
 		</root>
 	</springProfile>
+
+	<!-- 预发布环境 -->
+	<springProfile name="pre">
+		<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+			<encoder>
+				<pattern>${PATTERN}</pattern>
+			</encoder>
+		</appender>
+		<root level="info">
+			<appender-ref ref="FILE" />
+			<appender-ref ref="STDOUT" />
+		</root>
+	</springProfile>
 </configuration>  
