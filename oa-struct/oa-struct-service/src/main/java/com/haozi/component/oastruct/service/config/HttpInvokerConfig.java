@@ -44,4 +44,12 @@ public class HttpInvokerConfig {
         return exporter;
     }
 
+    @Bean("oaService")
+    public HttpInvokerProxyFactoryBean oaService() {
+        HttpInvokerProxyFactoryBean bean = new HttpInvokerProxyFactoryBean();
+        bean.setServiceUrl("http://10.108.26.232:8086/oa-struct-service/oaTreeService");
+        bean.setServiceInterface(OATreeService.class);
+        return bean;
+    }
+
 }
