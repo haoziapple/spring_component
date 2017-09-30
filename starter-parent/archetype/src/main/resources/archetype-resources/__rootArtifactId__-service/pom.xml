@@ -95,7 +95,7 @@
 		<dependency>
 			<groupId>${groupId}</groupId>
 			<artifactId>${rootArtifactId}-intf</artifactId>
-			<version>2.0.0</version>
+			<version>${version}</version>
 		</dependency>
 
 		<!-- 定时任务 -->
