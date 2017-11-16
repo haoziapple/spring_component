@@ -20,7 +20,7 @@
 			<FileNamePattern>${FILE_PATH}/${PROJECT}.%d{yyyy-MM-dd}-%i.log.zip
 			</FileNamePattern>
 			<!-- 文件最大保存历史数量 -->
-			<MaxHistory>15</MaxHistory>
+			<MaxHistory>5</MaxHistory>
 			<timeBasedFileNamingAndTriggeringPolicy
 				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
 				<!-- 设置文件大于50M进行压缩归档 -->
