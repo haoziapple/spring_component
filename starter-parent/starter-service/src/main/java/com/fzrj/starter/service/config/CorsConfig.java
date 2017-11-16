@@ -20,43 +20,25 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Component
 @Configuration
 @ConfigurationProperties(prefix = "cors.hosts")
-public class CorsConfig
-{
-	private List<String> allow;
+public class CorsConfig {
+    private String allowMapping;
 
-	private String allowMapping;
+    public String getAllowMapping() {
+        return allowMapping;
+    }
 
-	public List<String> getAllow()
-	{
-		return allow;
-	}
+    public void setAllowMapping(String allowMapping) {
+        this.allowMapping = allowMapping;
+    }
 
-	public void setAllow(List<String> allow)
-	{
-		this.allow = allow;
-	}
-
-	public String getAllowMapping()
-	{
-		return allowMapping;
-	}
-
-	public void setAllowMapping(String allowMapping)
-	{
-		this.allowMapping = allowMapping;
-	}
-
-	@Bean
-	public WebMvcConfigurer corsConfigurer()
-	{
-		return new WebMvcConfigurerAdapter()
-		{
-			@Override
-			public void addCorsMappings(CorsRegistry registry)
-			{
-				registry.addMapping(allowMapping).allowedOrigins(allow.toArray(new String[0]))
-						.allowedMethods("GET", "POST").allowedHeaders("*").allowCredentials(true).maxAge(1800);
-			}
-		};
-	}
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping(allowMapping)
+                        .allowedMethods("GET", "POST").allowedHeaders("*").allowCredentials(true).maxAge(1800);
+            }
+        };
+    }
 }

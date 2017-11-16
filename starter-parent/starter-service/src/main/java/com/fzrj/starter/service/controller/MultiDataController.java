@@ -37,7 +37,7 @@ public class MultiDataController
 	@Autowired
 	private Data3Service data3Service;
 
-	@RequestMapping(value = "/test", method = RequestMethod.POST)
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public int test()
 	{
 		int i1 = data1Service.get(new ReqBean());
