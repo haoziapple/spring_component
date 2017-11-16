@@ -100,7 +100,6 @@ public class AdviceLog {
 
         // 请求的参数
         Object[] args = joinPoint.getArgs();
-        Gson gson = new Gson();
         List<Object> paramList = new ArrayList<>();
         if (args.length > 0) {
             for (Object o : args) {
@@ -110,7 +109,7 @@ public class AdviceLog {
                     paramList.add(o);
                 }
             }
-            String params = gson.toJson(paramList);
+            String params = new Gson().toJson(paramList);
             sysLog.setParams(params);
         }
 
