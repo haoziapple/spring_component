@@ -29,7 +29,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @Api("订单相关api")
 @RestController
-@RequestMapping("/wap/order")
+@RequestMapping("/pc/order")
 // 在CorsConfig中进行了全局的跨域访问配置，这里的单独配置不需要了
 // @CrossOrigin(value = { "http://10.108.26.101:8089" })
 public class OrderController
@@ -47,6 +47,7 @@ public class OrderController
 		return orderIntf.submitOrder(reqInfo);
 	}
 
+	@AddLog
 	@RequestMapping(value = "/test", method = RequestMethod.POST)
 	public SubmitOrderRsp test(SubmitOrderInfo reqInfo, BindingResult bindingResult, HttpServletRequest req)
 	{

@@ -1,13 +1,8 @@
 package com.fzrj.starter.service.common.aop;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.fzrj.starter.service.common.ParamException;
+import com.fzrj.starter.service.common.util.HttpContextUtil;
+import com.fzrj.starter.service.common.util.IPUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.*;
@@ -17,10 +12,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 
-import com.fzrj.starter.service.common.ParamException;
-import com.fzrj.starter.service.common.util.HttpContextUtil;
-import com.fzrj.starter.service.common.util.IPUtil;
-import com.google.gson.Gson;
+import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @className:com.fzrj.starter.service.common.aop.AdviceLog
@@ -54,9 +51,7 @@ public class AdviceLog {
     @AfterReturning(value = "pointcut()", returning = "retValue")
     public void afterReturning(JoinPoint joinPoint, Object retValue) {
         SysLogEntity sysLog = logHolder.get();
-        Gson gson = new Gson();
-        String rsp = gson.toJson(retValue);
-        sysLog.setRsp(rsp);
+        sysLog.setRsp(retValue.toString());
         sysLog.setTime(System.currentTimeMillis() - sysLog.getTime());
         logger.info("系统日志-rsp:{}", sysLog);
         logHolder.remove();
@@ -109,7 +104,7 @@ public class AdviceLog {
                     paramList.add(o);
                 }
             }
-            String params = new Gson().toJson(paramList);
+            String params = paramList.toString();
             sysLog.setParams(params);
         }
 
