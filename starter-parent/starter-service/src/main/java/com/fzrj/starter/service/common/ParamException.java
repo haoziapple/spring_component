@@ -7,12 +7,22 @@ package com.fzrj.starter.service.common;
  * @date:2017年5月18日 下午1:06:10
  * @author:WangHao
  */
-public class ParamException extends IllegalArgumentException
-{
-	private static final long serialVersionUID = 1L;
+public class ParamException extends IllegalArgumentException {
+    private static final long serialVersionUID = 1L;
 
-	public ParamException(String message)
-	{
-		super(message);
-	}
+    public ParamException() {
+    }
+
+    public ParamException(String message) {
+        super(message);
+    }
+
+    public ParamException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public ParamException(Throwable cause) {
+        super(cause);
+    }
+
 }

@@ -1,12 +1,11 @@
 package com.fzrj.starter.service.common;
 
-import javax.servlet.http.HttpServletRequest;
-
+import com.fzrj.starter.intf.bean.common.ResultBean;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fzrj.starter.intf.bean.common.RspBean;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @className:com.fzrj.starter.service.common.ErrorHandler
@@ -16,34 +15,18 @@ import com.fzrj.starter.intf.bean.common.RspBean;
  * @author:WangHao
  */
 @ControllerAdvice
-public class ErrorHandler
-{
-	// 一般异常处理
-	@ExceptionHandler(value = Exception.class)
-	@ResponseBody
-	public RspBean defaultErrorHandler(HttpServletRequest req, Exception e)
-	{
-		RspBean rsp = new RspBean();
-		rsp.setRspCode("SYS-ERR");
-		if (e != null)
-		{
-			rsp.setRspMsg("系统异常");
-			rsp.setData(e.toString());
-		}
-		return rsp;
-	}
+public class ErrorHandler {
+    // 一般异常处理
+    @ExceptionHandler(value = Exception.class)
+    @ResponseBody
+    public ResultBean defaultErrorHandler(HttpServletRequest req, Exception e) {
+        return new ResultBean(e);
+    }
 
-	// 接口参数异常处理
-	@ExceptionHandler(value = ParamException.class)
-	@ResponseBody
-	public RspBean paramErrorHandler(HttpServletRequest req, ParamException e)
-	{
-		RspBean rsp = new RspBean();
-		rsp.setRspCode("PARAM-ERR");
-		if (e != null)
-		{
-			rsp.setRspMsg(e.getMessage());
-		}
-		return rsp;
-	}
+    // 接口参数异常处理
+    @ExceptionHandler(value = ParamException.class)
+    @ResponseBody
+    public ResultBean paramErrorHandler(HttpServletRequest req, ParamException e) {
+        return new ResultBean(e);
+    }
 }

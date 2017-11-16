@@ -2,6 +2,7 @@ package com.fzrj.starter.intf.bean.common;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * @className:com.fzrj.starter.intf.bean.common.ReqBean
@@ -11,37 +12,32 @@ import io.swagger.annotations.ApiModelProperty;
  * @author:WangHao
  */
 @ApiModel(value = "一般请求bean")
-public class ReqBean
-{
-	@ApiModelProperty(value = "请求id")
-	private String id;
+public class ReqBean {
+    @ApiModelProperty(value = "请求id")
+    @NotBlank(message = "id不可以为空")
+    private String id;
 
-	@ApiModelProperty(value = "请求token")
-	private String token;
+    @ApiModelProperty(value = "请求token")
+    private String token;
 
-	public String getId()
-	{
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setId(String id)
-	{
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getToken()
-	{
-		return token;
-	}
+    public String getToken() {
+        return token;
+    }
 
-	public void setToken(String token)
-	{
-		this.token = token;
-	}
+    public void setToken(String token) {
+        this.token = token;
+    }
 
-	@Override
-	public String toString()
-	{
-		return "ReqBean [id=" + id + ", token=" + token + "]";
-	}
+    @Override
+    public String toString() {
+        return "ReqBean [id=" + id + ", token=" + token + "]";
+    }
 }
