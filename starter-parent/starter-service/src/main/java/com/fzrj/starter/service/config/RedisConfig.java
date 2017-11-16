@@ -141,7 +141,6 @@ public class RedisConfig
 	/**
 	 * @Description:调用spring容器中已注册的bean方法，只支持无参或1个参数的方法
 	 * @param channel
-	 * @param serviceMethod
 	 * @param smArray
 	 * @param message
 	 * @version:v1.0
