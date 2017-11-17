@@ -16,6 +16,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.fzrj.starter.intf.bean.order.SubmitOrderInfo;
 import com.fzrj.starter.service.Application;
 
+import java.util.Set;
+
 /**
  * @className:com.fzrj.starter.service.common.util.RedisUtilTest
  * @description:RedisUtil测试类
@@ -68,6 +70,16 @@ public class RedisUtilTest
 		System.out.println("testSet: " + redisUtil.get(KEY));
 		assertEquals("set fail", "string1", redisUtil.get(KEY));
 	}
+
+	@Test
+	public final void testSetExpire()
+	{
+		String key = KEY + "expire";
+		redisUtil.set(key, "string1", 20L);
+		assertEquals("string1", redisUtil.get(key));
+		System.out.println(redisUtil.get(key));
+	}
+
 
 	@Test
 	public final void testGet()
@@ -145,4 +157,13 @@ public class RedisUtilTest
 			e.printStackTrace();
 		}
 	}
+
+	@Test
+	public final void testKeys()
+	{
+		String pattern = "tree:heirs_S:DEP170*";
+		Set<String> set = redisUtil.keys(pattern);
+		System.out.println(set);
+	}
+
 }

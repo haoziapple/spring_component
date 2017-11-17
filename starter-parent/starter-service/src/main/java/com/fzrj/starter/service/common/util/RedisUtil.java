@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
 /**
  * @className:com.fzrj.starter.service.common.util.RedisUtil
  * @description:redis工具类,通过注入使用,方法待丰富,对象序列化使用Gson
@@ -27,11 +30,7 @@ public class RedisUtil {
     StringRedisTemplate stringRedisTemplate;
     @Resource(name = "stringRedisTemplate")
     ValueOperations<String, String> stringOps;
-    // 操作Object类型,暂不在此工具类中使用
-    @Autowired
-    RedisTemplate<String, Object> objRedisTemplate;
-    @Resource(name = "objRedisTemplate")
-    ValueOperations<String, Object> objOps;
+
 
     /**
      * @param key
@@ -44,6 +43,17 @@ public class RedisUtil {
     public void set(String key, String value) {
         stringOps.set(key, value);
     }
+
+    /**
+     * @Description: set过期操作,以秒为单位
+     * @param: [key, value, timeout]
+     * @author: wanghao/haozixiaowang@163.com
+     * @date: 2017/11/17 9:20
+     **/
+    public void set(String key, String value, Long timeout) {
+        stringOps.set(key, value, timeout, TimeUnit.SECONDS);
+    }
+
 
     /**
      * @param key
@@ -117,5 +127,17 @@ public class RedisUtil {
             stringRedisTemplate.convertAndSend(topic, gson.toJson(msg));
         }
     }
+
+    /**
+     * @Description: 根据正则批量改搜索key值
+     * @param: [pattern]
+     * @author: wanghao/haozixiaowang@163.com
+     * @date: 2017/11/17 9:29
+     **/
+    public Set<String> keys(String pattern)
+    {
+        return stringRedisTemplate.keys(pattern);
+    }
+
 
 }

@@ -11,6 +11,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import com.fzrj.starter.service.common.filter.UserFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -27,52 +28,59 @@ import com.fzrj.starter.service.common.util.IPUtil;
  * @author:WangHao
  */
 @Configuration
-public class FilterGlobalConfig
-{
-	private static final Logger log = LoggerFactory.getLogger(FilterGlobalConfig.class);
+public class FilterGlobalConfig {
+    private static final Logger log = LoggerFactory.getLogger(FilterGlobalConfig.class);
 
-	/**
-	 * 添加过滤器
-	 * 
-	 * @return
-	 */
-	@Bean
-	public FilterRegistrationBean filterRegistrationBean()
-	{
-		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-		registrationBean.addUrlPatterns("/api/*");
-		registrationBean.addInitParameter("passIP", "0:0:0:0:0:0:0:1|127.0.0.1");
-		registrationBean.setName("intfVerifyFilter");
-		registrationBean.setOrder(1);
-		registrationBean.setFilter(new Filter()
-		{
-			private String[] passHosts;
+    /**
+     * 添加过滤器
+     *
+     * @return
+     */
+    @Bean
+    public FilterRegistrationBean filterRegistrationBean() {
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+        registrationBean.addUrlPatterns("/api/*");
+        registrationBean.addInitParameter("passIP", "0:0:0:0:0:0:0:1|127.0.0.1");
+        registrationBean.setName("intfVerifyFilter");
+        registrationBean.setOrder(1);
+        registrationBean.setFilter(new Filter() {
+            private String[] passHosts;
 
-			@Override
-			public void init(FilterConfig filterConfig) throws ServletException
-			{
-				String param = filterConfig.getInitParameter("passIP");
-				if (param != null)
-					this.passHosts = param.split("\\|");
-				log.info("初始化过滤器IP白名单: {}", Arrays.toString(passHosts));
-			}
+            @Override
+            public void init(FilterConfig filterConfig) throws ServletException {
+                String param = filterConfig.getInitParameter("passIP");
+                if (param != null)
+                    this.passHosts = param.split("\\|");
+                log.info("初始化过滤器IP白名单: {}", Arrays.toString(passHosts));
+            }
 
-			@Override
-			public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
-					FilterChain filterChain) throws IOException, ServletException
-			{
-				log.info("do filter");
-				if (Arrays.asList(passHosts).contains(IPUtil.getIpAddr((HttpServletRequest) servletRequest)))
-					filterChain.doFilter(servletRequest, servletResponse);
-			}
+            @Override
+            public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
+                                 FilterChain filterChain) throws IOException, ServletException {
+                log.info("do filter");
+                if (Arrays.asList(passHosts).contains(IPUtil.getIpAddr((HttpServletRequest) servletRequest)))
+                    filterChain.doFilter(servletRequest, servletResponse);
+            }
 
-			@Override
-			public void destroy()
-			{
-				log.info("destroy");
-			}
-		});
+            @Override
+            public void destroy() {
+                log.info("destroy");
+            }
+        });
 
-		return registrationBean;
-	}
+        return registrationBean;
+    }
+
+    @Bean
+    public FilterRegistrationBean userFilterBean() {
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+        registrationBean.addUrlPatterns("/*");
+        registrationBean.addInitParameter("passIP", "0:0:0:0:0:0:0:1|127.0.0.1");
+        registrationBean.setName("userFilter");
+        registrationBean.setOrder(2);
+
+        registrationBean.setFilter(new UserFilter());
+        return registrationBean;
+    }
+
 }
