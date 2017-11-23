@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class RedisUtil {
     public static final Gson gson = new GsonBuilder().create();
+    public static final String KEY_SPLIT = ":";
 
     // 操作String类型
     @Autowired
@@ -45,7 +46,7 @@ public class RedisUtil {
     }
 
     /**
-     * @Description: set过期操作,以秒为单位
+     * @Description: set过期操作, 以秒为单位
      * @param: [key, value, timeout]
      * @author: wanghao/haozixiaowang@163.com
      * @date: 2017/11/17 9:20
@@ -134,10 +135,17 @@ public class RedisUtil {
      * @author: wanghao/haozixiaowang@163.com
      * @date: 2017/11/17 9:29
      **/
-    public Set<String> keys(String pattern)
-    {
+    public Set<String> keys(String pattern) {
         return stringRedisTemplate.keys(pattern);
     }
 
-
+    /**
+     * @Description:
+     * @param:
+     * @author: wanghao/haozixiaowang@163.com
+     * @date: 2017/11/23 10:19
+    **/
+    public boolean hasKey(String key) {
+        return stringRedisTemplate.hasKey(key);
+    }
 }

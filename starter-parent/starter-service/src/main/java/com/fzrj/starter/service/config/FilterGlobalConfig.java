@@ -11,9 +11,12 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import com.fzrj.starter.service.common.filter.RateLimitFilter;
 import com.fzrj.starter.service.common.filter.UserFilter;
+import com.fzrj.starter.service.common.util.SpringContextUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,8 +34,11 @@ import com.fzrj.starter.service.common.util.IPUtil;
 public class FilterGlobalConfig {
     private static final Logger log = LoggerFactory.getLogger(FilterGlobalConfig.class);
 
+    @Autowired
+    private SpringContextUtil springContextUtil;
+
     /**
-     * 添加过滤器
+     * 添加过滤器(样例)
      *
      * @return
      */
@@ -71,15 +77,37 @@ public class FilterGlobalConfig {
         return registrationBean;
     }
 
+    /**
+     * @Description: 用户过滤器，将请求中的tokenId转化为用户信息
+     * @param:
+     * @author: wanghao/haozixiaowang@163.com
+     * @date: 2017/11/23 10:27
+     **/
     @Bean
     public FilterRegistrationBean userFilterBean() {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.addUrlPatterns("/*");
-        registrationBean.addInitParameter("passIP", "0:0:0:0:0:0:0:1|127.0.0.1");
         registrationBean.setName("userFilter");
         registrationBean.setOrder(2);
 
         registrationBean.setFilter(new UserFilter());
+        return registrationBean;
+    }
+
+    /**
+     * @Description: 访问频次限制过滤器
+     * @param:
+     * @author: wanghao/haozixiaowang@163.com
+     * @date: 2017/11/23 10:52
+     **/
+    @Bean
+    public FilterRegistrationBean rateLimitFilterBean() {
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+        registrationBean.addUrlPatterns("/*");
+        registrationBean.setName("rateLimitFilter");
+        registrationBean.setOrder(3);
+
+        registrationBean.setFilter(new RateLimitFilter(springContextUtil.getContext()));
         return registrationBean;
     }
 

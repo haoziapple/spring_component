@@ -23,10 +23,8 @@ public class UserFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String a = (String) request.getAttribute("tokenId");
-        String[] b = request.getParameterValues("test");
-        String c = ((HttpServletRequest) request).getHeader("tokenId");
-        logger.info("a : {}, b: {}, c: {}", a, b, c);
+        String tokenId = ((HttpServletRequest) request).getHeader("tokenId");
+        logger.info("Request with tokenId: {}", tokenId);
         chain.doFilter(request, response);
     }
 
