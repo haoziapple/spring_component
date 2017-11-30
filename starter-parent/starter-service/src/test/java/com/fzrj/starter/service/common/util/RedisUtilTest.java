@@ -94,7 +94,6 @@ public class RedisUtilTest
 		try
 		{
 			SubmitOrderInfo info = new SubmitOrderInfo();
-			info.setId("id");
 			redisUtil.set(KEY, info);
 			System.out.println("testSetObj: " + redisUtil.getObj(KEY, SubmitOrderInfo.class));
 		}
@@ -110,7 +109,6 @@ public class RedisUtilTest
 		try
 		{
 			SubmitOrderInfo info = new SubmitOrderInfo();
-			info.setId("id");
 			redisUtil.set(KEY, info);
 			System.out.println("testGetObj: " + redisUtil.get(KEY));
 		}

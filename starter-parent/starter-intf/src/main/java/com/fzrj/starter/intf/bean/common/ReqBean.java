@@ -15,32 +15,18 @@ import javax.validation.Valid;
  */
 @ApiModel(value = "一般请求bean")
 public class ReqBean<T> {
-    @ApiModelProperty(value = "请求id")
-    @NotBlank(message = "id不可以为空")
-    private String id;
+    public ReqBean() {
+        super();
+    }
 
-    @ApiModelProperty(value = "请求token")
-    private String token;
+    public ReqBean(T data) {
+        super();
+        this.data = data;
+    }
 
     @ApiModelProperty(value = "包装数据")
     @Valid
     private T data;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
 
     public T getData() {
         return data;
@@ -53,9 +39,7 @@ public class ReqBean<T> {
     @Override
     public String toString() {
         return "ReqBean{" +
-                "id='" + id + '\'' +
-                ", token='" + token + '\'' +
-                ", data=" + data +
+                "data=" + data +
                 '}';
     }
 }

@@ -24,6 +24,15 @@ public class ResultBean<T> implements Serializable {
 
     public static final int NO_PERMISSION = 2;
 
+    public ResultBean() {
+        super();
+    }
+
+    public ResultBean(T data) {
+        super();
+        this.data = data;
+    }
+
     @ApiModelProperty("返回信息")
     private String msg = "success";
 
@@ -38,15 +47,6 @@ public class ResultBean<T> implements Serializable {
 
     @ApiModelProperty("包装返回数据")
     private T data;
-
-    public ResultBean() {
-        super();
-    }
-
-    public ResultBean(T data) {
-        super();
-        this.data = data;
-    }
 
     public ResultBean(Throwable e) {
         super();

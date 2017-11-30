@@ -9,9 +9,18 @@ import org.hibernate.validator.constraints.NotBlank;
  * @description: 一般分页请求bean
  * @author: wanghao/haozixiaowang@163.com
  * @date: 2017/11/16 16:26
-**/
+ **/
 @ApiModel(value = "一般分页请求bean")
-public class ReqPageBean<T> extends ReqBean{
+public class ReqPageBean<T> extends ReqBean {
+    public ReqPageBean() {
+        super();
+    }
+
+    public ReqPageBean(T data) {
+        super();
+        this.setData(data);
+    }
+
     @ApiModelProperty("每页条数，默认20")
     private int pageSize = Page.DEFAULT_PAGE_SIZE;
 
