@@ -5,6 +5,9 @@ package ${package}.intf.bean.common;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.Valid;
 
 /**
  * @className:${package}.intf.bean.common.ReqBean
@@ -14,37 +17,32 @@ import io.swagger.annotations.ApiModelProperty;
  * @author:WangHao
  */
 @ApiModel(value = "一般请求bean")
-public class ReqBean
-{
-	@ApiModelProperty(value = "请求id")
-	private String id;
+public class ReqBean<T> {
+    public ReqBean() {
+        super();
+    }
 
-	@ApiModelProperty(value = "请求token")
-	private String token;
+    public ReqBean(T data) {
+        super();
+        this.data = data;
+    }
 
-	public String getId()
-	{
-		return id;
-	}
+    @ApiModelProperty(value = "包装数据")
+    @Valid
+    private T data;
 
-	public void setId(String id)
-	{
-		this.id = id;
-	}
+    public T getData() {
+        return data;
+    }
 
-	public String getToken()
-	{
-		return token;
-	}
+    public void setData(T data) {
+        this.data = data;
+    }
 
-	public void setToken(String token)
-	{
-		this.token = token;
-	}
-
-	@Override
-	public String toString()
-	{
-		return "ReqBean [id=" + id + ", token=" + token + "]";
-	}
+    @Override
+    public String toString() {
+        return "ReqBean{" +
+                "data=" + data +
+                '}';
+    }
 }

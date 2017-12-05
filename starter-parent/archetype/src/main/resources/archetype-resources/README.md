@@ -9,3 +9,10 @@
 - redis消息发布的封装->check(使用pub/sub,反射调用spring容器内的方法)
 - 测试相关(打包跳过测试)->TODO:springboot的集成测试->check
 - 允许跨域访问(CrossOrigins)->check
+
+## 2.0.1版本调整
+- 统一的请求，返回bean，分页bean
+- AOP日志打印类的调整
+- UserFilter，RateLimitFilter的添加：获取用户信息；限制接口访问频次
+- 跨域访问的调整，只根据allowmapping开放mapping
+- sandbox包内添加一些实验性方法

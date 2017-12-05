@@ -24,32 +24,28 @@ import ${package}.service.config.mq.RedisMqMapping;
  * @author:WangHao
  */
 @SpringBootApplication
-public class Application extends SpringBootServletInitializer
-{
-	private static final Logger log = LoggerFactory.getLogger(Application.class);
+public class Application extends SpringBootServletInitializer {
+    private static final Logger log = LoggerFactory.getLogger(Application.class);
 
-	// jar包启动方式
-	public static void main(String[] args)
-	{
-		ApplicationContext ctx = SpringApplication.run(Application.class, args);
+    // jar包启动方式
+    public static void main(String[] args) {
+        ApplicationContext ctx = SpringApplication.run(Application.class, args);
 
-		log.info("Springboot application started");
-		String[] beanNames = ctx.getBeanDefinitionNames();
-		Arrays.sort(beanNames);
-		for (String beanName : beanNames)
-		{
-			log.info("loaded bean's name: {}", beanName);
-		}
-		CorsConfig config = ctx.getBean(CorsConfig.class);
-		log.info("cors allow mapping: {}, allow domains: {}", config.getAllowMapping(), config.getAllow());
-		RedisMqMapping mapping = ctx.getBean(RedisMqMapping.class);
-		log.info("Redis MQ mapping: {}", mapping.getMap());
-	}
+        log.info("Springboot application started");
+        String[] beanNames = ctx.getBeanDefinitionNames();
+        Arrays.sort(beanNames);
+        for (String beanName : beanNames) {
+            log.info("loaded bean's name: {}", beanName);
+        }
+        CorsConfig config = ctx.getBean(CorsConfig.class);
+        log.info("cors allow mapping: {}", config.getAllowMapping());
+        RedisMqMapping mapping = ctx.getBean(RedisMqMapping.class);
+        log.info("Redis MQ mapping: {}", mapping.getMap());
+    }
 
-	// war包方式启动
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder)
-	{
-		return builder.sources(this.getClass());
-	}
+    // war包方式启动
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(this.getClass());
+    }
 }

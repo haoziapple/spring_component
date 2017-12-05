@@ -24,7 +24,7 @@ public class Page<E>
 	private int pageSize;
 
 	// 起始条数
-	private long start;
+	private long startIndex;
 
 	// 总条数
 	private long totalCount;
@@ -35,168 +35,143 @@ public class Page<E>
 	private static final Logger logger = LoggerFactory.getLogger(Page.class);
 
 	/**
-	 * @Description:获取起始条数
 	 * @return
+	 * @Description:获取起始条数
 	 * @version:v1.0
 	 * @author:WangHao
 	 * @date:2017年8月22日 上午10:40:53
 	 */
-	public long getStart()
-	{
-		return start;
+	public long getStartIndex() {
+		return startIndex;
 	}
 
-	public void setPageSize(int pageSize)
-	{
+	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 	}
 
-	public void setStart(int start)
-	{
-		this.start = start;
+	public void setStartIndex(long startIndex) {
+		this.startIndex = startIndex;
 	}
 
-	public void setTotalCount(long totalCount)
-	{
+	public void setTotalCount(long totalCount) {
 		this.totalCount = totalCount;
 	}
 
-	public Page()
-	{
+	public Page() {
 		this(0, 0, DEFAULT_PAGE_SIZE, new ArrayList<E>());
 	}
 
-	public Page(int pageSize)
-	{
+	public Page(int pageSize) {
 		this(0, 0, pageSize, new ArrayList<E>());
 	}
 
-	public Page(long start, long totalSize, int pageSize, List<E> data)
-	{
-		if (pageSize <= 0 || start < 0 || totalSize < 0)
-		{
-			logger.error("pageSize <= 0 is {}\tstart < 0 is {}\ttotalSize < 0 is {}", pageSize, start, totalSize);
+	public Page(long startIndex, long totalSize, int pageSize, List<E> data) {
+		if (pageSize <= 0 || startIndex < 0 || totalSize < 0) {
+			logger.error("pageSize <= 0 is {}\tstartIndex < 0 is {}\ttotalSize < 0 is {}", pageSize, startIndex, totalSize);
 			throw new IllegalArgumentException("Illegal Arguments to Initiate Page Object");
 		}
 		this.pageSize = pageSize;
-		this.start = start;
+		this.startIndex = startIndex;
 		this.totalCount = totalSize;
 		this.data = data;
 	}
 
 	/**
-	 * @Description:获取总条数
 	 * @return
+	 * @Description:获取总条数
 	 * @version:v1.0
 	 * @author:WangHao
 	 * @date:2017年8月22日 上午10:52:24
 	 */
-	public long getTotalCount()
-	{
+	public long getTotalCount() {
 		return this.totalCount;
 	}
 
 	/**
-	 * @Description:获取总分页数
 	 * @return
+	 * @Description:获取总分页数
 	 * @version:v1.0
 	 * @author:WangHao
 	 * @date:2017年8月22日 上午10:52:37
 	 */
-	public long getTotalPageCount()
-	{
+	public long getTotalPageCount() {
 		long pc = totalCount / pageSize;
 		return totalCount % pageSize == 0 ? pc : pc + 1;
 	}
 
 	/**
-	 * @Description:获取分页条数
 	 * @return
+	 * @Description:获取分页条数
 	 * @version:v1.0
 	 * @author:WangHao
 	 * @date:2017年8月22日 上午10:54:30
 	 */
-	public int getPageSize()
-	{
+	public int getPageSize() {
 		return pageSize;
 	}
 
-	public void setResult(List<E> data)
-	{
+	public void setResult(List<E> data) {
 		this.data = data;
 	}
 
-	public List<E> getResult()
-	{
+	public List<E> getResult() {
 		return data;
 	}
 
 	/**
-	 * @Description:获取当前分页号
 	 * @return
+	 * @Description:获取当前分页号
 	 * @version:v1.0
 	 * @author:WangHao
 	 * @date:2017年8月22日 上午10:55:25
 	 */
-	public long getCurrentPageNo()
-	{
-		return start / pageSize + 1;
+	public long getCurrentPageNo() {
+		return startIndex / pageSize + 1;
 	}
 
 	/**
-	 * @Description:是否有下一页
 	 * @return
+	 * @Description:是否有下一页
 	 * @version:v1.0
 	 * @author:WangHao
 	 * @date:2017年8月22日 上午10:55:55
 	 */
-	public boolean hasNextPage()
-	{
+	public boolean hasNextPage() {
 		return this.getCurrentPageNo() < this.getTotalPageCount();
 	}
 
 	/**
-	 * @Description:是否有前一页
 	 * @return
+	 * @Description:是否有前一页
 	 * @version:v1.0
 	 * @author:WangHao
 	 * @date:2017年8月22日 上午10:56:12
 	 */
-	public boolean hasPreviousPage()
-	{
+	public boolean hasPreviousPage() {
 		return this.getCurrentPageNo() > 1;
 	}
 
 	/**
-	 * @Description:判断是否为空页
 	 * @return
+	 * @Description:判断是否为空页
 	 * @version:v1.0
 	 * @author:WangHao
 	 * @date:2017年8月22日 上午10:57:43
 	 */
-	public boolean isEmpty()
-	{
+	public boolean isEmpty() {
 		return data == null || data.isEmpty();
 	}
 
-	public long getStartIndex()
-	{
-		return (getCurrentPageNo() - 1) * pageSize;
-	}
-
-	public long getEndIndex()
-	{
+	public long getEndIndex() {
 		long endIndex = getCurrentPageNo() * pageSize - 1;
 		return endIndex >= totalCount ? totalCount - 1 : endIndex;
 	}
 
-	protected static int getStartOfPage(int pageNo)
-	{
+	protected static int getStartOfPage(int pageNo) {
 		return getStartOfPage(pageNo, DEFAULT_PAGE_SIZE);
 	}
 
-	public static int getStartOfPage(int pageNo, int pageSize)
-	{
+	public static int getStartOfPage(int pageNo, int pageSize) {
 		return (pageNo - 1) * pageSize;
 	}
 }

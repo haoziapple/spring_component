@@ -1,11 +1,14 @@
-package com.fzrj.starter.intf.bean.common;
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+package ${package}.intf.bean.common;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
- * @className: com.fzrj.starter.intf.bean.common.ReqPageBean
+ * @className: ${package}.intf.bean.common.ReqPageBean
  * @description: 一般分页请求bean
  * @author: wanghao/haozixiaowang@163.com
  * @date: 2017/11/16 16:26

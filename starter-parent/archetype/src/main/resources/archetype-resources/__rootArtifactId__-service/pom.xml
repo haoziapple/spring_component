@@ -26,11 +26,7 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		<!-- end::actuator[] -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.springframework.boot</groupId> -->
-		<!-- <artifactId>spring-boot-devtools</artifactId> -->
-		<!-- <optional>true</optional> -->
-		<!-- </dependency> -->
+		
 		<!-- 部署到tomcat容器中时排除tomcat依赖 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

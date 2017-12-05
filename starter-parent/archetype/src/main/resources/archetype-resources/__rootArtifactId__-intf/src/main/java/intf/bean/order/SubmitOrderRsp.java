@@ -3,13 +3,11 @@
 #set( $symbol_escape = '\' )
 package ${package}.intf.bean.order;
 
-import ${package}.intf.bean.common.RspBean;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 @ApiModel("提交订单返回bean")
-public class SubmitOrderRsp extends RspBean
+public class SubmitOrderRsp
 {
 	@ApiModelProperty("订单id")
 	private String orderId;
