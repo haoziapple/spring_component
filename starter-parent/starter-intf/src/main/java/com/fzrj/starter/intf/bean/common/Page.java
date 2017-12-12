@@ -65,14 +65,14 @@ public class Page<E>
 		this(0, 0, pageSize, new ArrayList<E>());
 	}
 
-	public Page(long startIndex, long totalSize, int pageSize, List<E> data) {
-		if (pageSize <= 0 || startIndex < 0 || totalSize < 0) {
-			logger.error("pageSize <= 0 is {}\tstartIndex < 0 is {}\ttotalSize < 0 is {}", pageSize, startIndex, totalSize);
+	public Page(long startIndex, long totalCount, int pageSize, List<E> data) {
+		if (pageSize <= 0 || startIndex < 0 || totalCount < 0) {
+			logger.error("pageSize <= 0 is {}\tstartIndex < 0 is {}\ttotalSize < 0 is {}", pageSize, startIndex, totalCount);
 			throw new IllegalArgumentException("Illegal Arguments to Initiate Page Object");
 		}
 		this.pageSize = pageSize;
 		this.startIndex = startIndex;
-		this.totalCount = totalSize;
+		this.totalCount = totalCount;
 		this.data = data;
 	}
 
@@ -173,5 +173,12 @@ public class Page<E>
 
 	public static int getStartOfPage(int pageNo, int pageSize) {
 		return (pageNo - 1) * pageSize;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Page [pageSize=" + pageSize + ", startIndex=" + startIndex + ", totalCount=" + totalCount + ", data="
+				+ data + "]";
 	}
 }

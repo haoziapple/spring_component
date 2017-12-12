@@ -100,26 +100,13 @@
         <dependency>
             <groupId>com.aquatic.schedule</groupId>
             <artifactId>schedule-service</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
     </dependencies>
 
     <build>
         <finalName>starter_service</finalName>
         <plugins>
-            <!-- 使用java1.7和UTF-8编码 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                    <encoding>UTF-8</encoding>
-                    <fork>true</fork>
-                    <executable>${JAVA_HOME}/bin/javac</executable>
-                </configuration>
-            </plugin>
-
             <!-- 打包插件 -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>

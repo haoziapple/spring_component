@@ -23,7 +23,7 @@ import java.lang.reflect.Method;
  * @date: 2017/11/28 17:12
 **/
 @Aspect
-@Component
+//@Component
 public class MvcMethodLogAdvice {
     private static Logger logger = LoggerFactory.getLogger(MvcMethodLogAdvice.class);
 
