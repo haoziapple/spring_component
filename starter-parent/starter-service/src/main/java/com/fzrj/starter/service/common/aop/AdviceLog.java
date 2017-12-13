@@ -43,7 +43,6 @@ public class AdviceLog {
     public void before(JoinPoint joinPoint) {
         SysLogEntity sysLog = this.initSysLog(joinPoint);
         logHolder.set(sysLog);
-        logger.info("系统日志-req:{}", sysLog);
         // 校验请求参数
         validateReq(joinPoint);
     }
@@ -53,7 +52,7 @@ public class AdviceLog {
         SysLogEntity sysLog = logHolder.get();
         sysLog.setRsp(retValue.toString());
         sysLog.setTime(System.currentTimeMillis() - sysLog.getTime());
-        logger.info("系统日志-rsp:{}", sysLog);
+        logger.info("系统日志-{}", sysLog);
         logHolder.remove();
     }
 
