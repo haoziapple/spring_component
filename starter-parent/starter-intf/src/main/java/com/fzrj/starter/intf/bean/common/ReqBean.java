@@ -23,10 +23,14 @@ public class ReqBean<T> {
         super();
         this.data = data;
     }
+    
+    @ApiModelProperty("操作id")
+    @NotBlank(message="操作id不可以为空")
+    protected String id;
 
     @ApiModelProperty(value = "包装数据")
     @Valid
-    private T data;
+    protected T data;
 
     public T getData() {
         return data;
@@ -36,10 +40,21 @@ public class ReqBean<T> {
         this.data = data;
     }
 
-    @Override
+    public String getId()
+	{
+		return id;
+	}
+
+	public void setId(String id)
+	{
+		this.id = id;
+	}
+
+	@Override
     public String toString() {
         return "ReqBean{" +
-                "data=" + data +
+        		"id='" + id + '\'' +
+                ", data=" + data +
                 '}';
     }
 }
