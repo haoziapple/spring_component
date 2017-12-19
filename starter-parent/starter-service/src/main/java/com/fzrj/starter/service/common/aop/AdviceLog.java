@@ -65,6 +65,7 @@ public class AdviceLog {
         logger.error(
                 "发生异常\n方法: {} \n参数：{} \n方法签名: {} \n异常信息: {}",
                 methodName, arguments, stuff, e.getMessage(), e);
+        logHolder.remove();
     }
 
     /**
