@@ -102,6 +102,23 @@
             <artifactId>schedule-service</artifactId>
             <version>1.0.1</version>
         </dependency>
+
+        <!-- Excel导入导出 -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.14</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.14</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.jxls</groupId>
+            <artifactId>jxls-core</artifactId>
+            <version>1.0.5</version>
+        </dependency>
     </dependencies>
 
     <build>
